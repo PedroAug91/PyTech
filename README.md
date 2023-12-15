@@ -1,5 +1,5 @@
 # PyTech
-<img src="/logo/PyTech.png">
+<img src="/logo/PyTech-logoNova.png">
 
 ## Ideia do projeto
 O projeto tem o objeto de criar um site na web de um eCommerce de venda de produtos eletrônicos/tecnológicos, desde itens para casa inteligente, até para celulares e computadores.
