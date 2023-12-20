@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block static %}
+    {% endblock static%}
+    <title>{{title}} | PyTech</title>
+</head>
+<body id="body">
+    <header>
+        <div id="upperHeader">
+            <img src="../static/img/logo/PyTech-nome.png" alt="">
+            <div id="search">
+                <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <form action="search">
+                    <input id="searchInput" type="text">
+                </form>
+            </div>
+            <div>
+                <button id="chageThemeButton"><i class="fa-solid fa-moon"></i></button>
+                <a href="" id="userImage">{{ }}</a>
+                <div id="shoppingCart">
+                    <div>
+                        <p>{{  }}</p>
+                    </div>
+                    <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+                </div>
+            </div>
+        </div>
+        <div id="lowerHeader">
+            <div class="navbar-corner">
+                <p>CELULARES</p>
+            </div>
+            <div class="navbar">
+                <p>COMPUTADORES</p>
+            </div>
+            <div class="navbar">
+                <p>ELETRÔNICOS</p>
+            </div>
+            <div class="navbar">
+                <p>GAMES</p>
+            </div>
+            <div class="navbar">
+                <p></p>
+            </div>
+            <div class="navbar">
+                <p>PERIFÉRICOS</p>
+            </div>
+            <div class="navbar">
+                <p>SMART HOME</p>
+            </div>
+            <div class="navbar">
+                <p>SMARTWATCHES</p>
+            </div>
+            <div class="navbar">
+                <p>TABLETS</p>
+            </div>
+            <div class="navbar-corner">
+                <p>TVs</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer>
+        <div id="upperFooter">
+            <div id="topicsFooter">
+                <div>
+                    <h1>Sobre</h1>
+                    <a href="">Quem é a PyTech?</a>
+                </div>
+                <div>
+                    <h1>Ganhe com a gente</h1>
+                    <a href="">Venda na PyTech</a>
+                    <a href="">Anuncie seus produtos</a>
+                </div>
+                <div>
+                    <h1>Pagamento</h1>
+                    <p><i class="fa-brands fa-pix"></i> PIX</p>
+                </div>
+                <div>
+                    <h1>Contato</h1>
+                    <p>(XX) XXXXX-XXXX</p>
+                    <p>pygreen2023@gmail.com</p>
+                </div>
+            </div>
+            <hr>
+            <img src="../static/img/logo/PyTech-logo.png" alt="">
+        </div>
+        <div id="lowerFooter">
+            <p>© 2023 PyTech. Todos os direitos reservados</p>
+        </div>
+    </footer>
+    <script src="https://kit.fontawesome.com/286fab062e.js" crossorigin="anonymous"></script>
+    {% block javascript %}
+    {% endblock javascript %}
+</body>
+</html>
