@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/stylebase.css">
     {% block static %}
     {% endblock static%}
     <title>{{title}} | PyTech</title>
@@ -12,25 +13,25 @@
     <!-- header de todas as paginas -->
     <header>
         <div id="upperHeader">
-            <img src="../static/img/logo/PyTech-nome.png" alt="">
+            <img id="logoName" src="../static/img/logo/PyTech-nome.png" alt="">
             <div id="search">
                 <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <form action="search">
-                    <input id="searchInput" type="text">
+                    <input placeholder="Pesquisar" id="searchInput" type="text">
                 </form>
             </div>
-            <div>
+            <div id="iconsHeader">
                 <button id="chageThemeButton"><i class="fa-solid fa-moon"></i></button>
-                <a href="" id="userImage">{{ }}</a>
+                <a href="" id="userImage"><img src="../static/img/playstationLlogo.jpg" alt=""></a> 
                 <div id="shoppingCart">
-                    <div>
-                        <p>{{  }}</p>
-                    </div>
                     <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div>
+                        <p>1</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="lowerHeader">
+        <div id="lowerHeader">  
             <div class="navbar-corner">
                 <p>CELULARES</p>
             </div>
@@ -44,9 +45,6 @@
                 <p>GAMES</p>
             </div>
             <div class="navbar">
-                <p></p>
-            </div>
-            <div class="navbar">
                 <p>PERIFÉRICOS</p>
             </div>
             <div class="navbar">
@@ -58,7 +56,7 @@
             <div class="navbar">
                 <p>TABLETS</p>
             </div>
-            <div class="navbar-corner">
+            <div class="navbar">
                 <p>TVs</p>
             </div>
         </div>

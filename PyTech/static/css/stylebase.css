@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    scroll-padding: 100px;
+}
+
+:root {
+    --clr-primary: #2B2B2B;
+    --clr-secundary: #EA6507;
+    --clr-header: #252525;
+    --clr-accent-white: #FFFFFF;
+    --clr-accent-black: #000000;
+    --clr-accent-green: #1F9050;
+    --clr-accent-red: #FF3900;
+    --clr-accent-gray: #3E3E3E;
+    --clr-accent-darkorange: #A94600;
+    --font-primary: 'Roboto Slab'
+}
+
+html {
+    font-size: 10px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--clr-header);
+    height: 100px;
+    padding-right: 250px;
+    padding-left: 250px;
+    box-shadow: 5px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+header #logoName {
+    max-width: 100%;
+}
+
+#upperHeader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+header #search {
+    display: flex;
+}
+
+#search #searchButton {
+    width: 40px;
+    height: 40px;
+    background-color: var(--clr-accent-white);
+    border: none;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+#search #searchButton:hover {
+    background-color: var(--clr-secundary);
+    color: var(--clr-accent-white);
+}
+
+#search #searchButton i {
+    font-size: 1.5rem;
+}
+
+header #searchInput {
+    max-width: 610;
+    height: 40px;
+    border: none;
+    flex-shrink: 2;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-size: 1.6rem;
+    font-family: var(--font-primary);
+}
+
+header #iconsHeader {
+    display: flex;
+    width: 160px;
+    justify-content: space-between;
+}
+
+#upperHeader #chageThemeButton {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    color: var(--clr-accent-white);
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+#upperHeader #userImage {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+#upperHeader #userImage img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+#upperHeader #shoppingCart {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#upperHeader #shoppingCart a {
+    width: 40px;
+    height: 40px;
+}
+
+#upperHeader #shoppingCart div {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--clr-accent-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--clr-secundary);
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: absolute;
+}
+
+#upperHeader #shoppingCart a i {
+    font-size: 3rem;
+    color: var(--clr-secundary);
+    position: relative;
+    margin-top: 5px;
+}
+
+#lowerHeader {
+    display: flex;
+    align-items: center;
+    width: 1170px;
+    height: 25px;
+    background-color: var(--clr-secundary);
+    border-top: 1px solid var(--clr-accent-white);
+    position: absolute;
+    margin-top: 80px;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+#lowerHeader div {
+    width: 130px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--clr-accent-white);
+    font-family: var(--font-primary);
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+#lowerHeader .navbar {
+    border-left: 0.5px solid var(--clr-accent-white);
+}
+
+#upperFooter {
+    height: 375px;
+    background-color: var(--clr-secundary);
+
+}
+
+#lowerFooter {
+    height: 25px;
+    background-color: var(--clr-accent-darkorange);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    font-family: var(--font-primary);
+    color: var(--clr-accent-white);
+}
+
+
+
