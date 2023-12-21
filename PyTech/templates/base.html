@@ -9,6 +9,7 @@
     <title>{{title}} | PyTech</title>
 </head>
 <body id="body">
+    <!-- header de todas as paginas -->
     <header>
         <div id="upperHeader">
             <img src="../static/img/logo/PyTech-nome.png" alt="">
@@ -63,11 +64,13 @@
         </div>
     </header>
 
+    <!-- espaco onde sera inserido o conteudo de cada pagina utilizando jinja e templates -->
     <main>
         {% block content %}
         {% endblock content %}
     </main>
 
+    <!-- footer de todas as paginas -->
     <footer>
         <div id="upperFooter">
             <div id="topicsFooter">
@@ -97,6 +100,8 @@
             <p>© 2023 PyTech. Todos os direitos reservados</p>
         </div>
     </footer>
+
+    <!-- espaco para adicionarmos os codigos de JavaScript -->
     <script src="https://kit.fontawesome.com/286fab062e.js" crossorigin="anonymous"></script>
     {% block javascript %}
     {% endblock javascript %}
