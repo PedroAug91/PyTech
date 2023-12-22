@@ -117,11 +117,21 @@ header #iconsHeader {
     cursor: pointer;
 }
 
-#upperHeader #userImage {
+#userMenu {
     width: 40px;
-    height: 40px;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#upperHeader #userImage {
     display: flex;
     align-items: center;
+}
+
+#userMenu:hover #profileInfos{
+    display: block;
 }
 
 #upperHeader #userImage img {
@@ -137,14 +147,16 @@ header #iconsHeader {
     color: var(--clr-accent-white);
     font-size: 1.4rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+    display: none;
 }
 
 #profileInfos hr {
     color: var(--clr-secondary);
-}
-
-#profileInfos hr, #profileInfos p {
-    margin-block: 10px;
+    width: 80%;
 }
 
 #upperHeader #shoppingCart {
