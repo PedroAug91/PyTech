@@ -92,8 +92,13 @@ header #searchInput {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     font-size: 1.6rem;
-    
 }
+
+textarea:focus, input:focus, select:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+} 
 
 header #iconsHeader {
     display: flex;
@@ -349,4 +354,3 @@ footer {
         display: none;
     }
 }
-
