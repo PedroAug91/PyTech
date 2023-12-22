@@ -22,6 +22,7 @@
 
 html {
     font-size: 10px;
+    font-family: var(--font-primary);
 }
 
 header {
@@ -30,7 +31,6 @@ header {
     align-items: center;
     background-color: var(--clr-header);
     height: 100px;
-    padding-inline: 250px;
     box-shadow: 5px 4px 4px 0px rgba(0, 0, 0, 0.25);
     position: relative;
 }
@@ -44,19 +44,28 @@ header #menuBars {
 }
 
 #upperHeader {
+    max-width: 1420px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 20px;
 }
 
 header #search {
     display: flex;
+    max-width: 650px;
+    width: 100%;
+    justify-content: center;
+}
+
+#search form {
+    max-width: 610px;
+    width: 80%;
 }
 
 #search #searchButton {
-    width: 40px;
+    max-width: 40px;
+    width: 100%;
     height: 40px;
     background-color: var(--clr-accent-white);
     border: none;
@@ -76,20 +85,21 @@ header #search {
 }
 
 header #searchInput {
-    max-width: 610px;
+    width: 100%;
+    display: flex;
     height: 40px;
     border: none;
-    flex-shrink: 2;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     font-size: 1.6rem;
-    font-family: var(--font-primary);
+    
 }
 
 header #iconsHeader {
     display: flex;
     width: 160px;
     justify-content: space-between;
+    align-items: center;
 }
 
 #upperHeader #chageThemeButton {
@@ -115,6 +125,23 @@ header #iconsHeader {
     border-radius: 50%;
 }
 
+#profileInfos {
+    min-height: 40px;
+    width: 140px;
+    background-color: var(--clr-primary);
+    color: var(--clr-accent-white);
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+#profileInfos hr {
+    color: var(--clr-secondary);
+}
+
+#profileInfos hr, #profileInfos p {
+    margin-block: 10px;
+}
+
 #upperHeader #shoppingCart {
     display: flex;
     justify-content: flex-end;
@@ -134,10 +161,11 @@ header #iconsHeader {
     justify-content: center;
     align-items: center;
     color: var(--clr-secondary);
-    font-family: var(--font-primary);
+    
     font-size: 1.5rem;
     font-weight: bold;
     position: absolute;
+    margin-top: 10px;
 }
 
 #upperHeader #shoppingCart a i {
@@ -150,7 +178,7 @@ header #iconsHeader {
 #lowerHeader {
     display: flex;
     align-items: center;
-    width: 1170px;
+    width: 1177.5px;
     height: 25px;
     background-color: var(--clr-secondary);
     border-top: 1px solid var(--clr-accent-white);
@@ -160,25 +188,87 @@ header #iconsHeader {
 }
 
 #lowerHeader div {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lowerHeader div p{
     width: 130px;
     height: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--clr-accent-white);
-    font-family: var(--font-primary);
+    
     font-weight: bold;
     font-size: 1.4rem;
+}
+
+#lowerHeader div:hover {
+    background-color: var(--clr-accent-darkorange);
 }
 
 #lowerHeader .navbar {
     border-left: 0.5px solid var(--clr-accent-white);
 }
 
-#upperFooter {
-    height: 375px;
+footer {
     background-color: var(--clr-secondary);
+}
 
+#upperFooter {
+    margin-inline: 250px;
+    min-height: 375px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#upperFooter button {
+    display: none;
+}
+
+#upperFooter #topicsFooter {
+    width: 100%;
+    margin-block: 50px;
+    display: flex;
+    justify-content: space-between;
+    
+    color: var(--clr-accent-white);
+}
+
+#upperFooter #topicsFooter h1, p, a {
+    margin-block: 15px;
+}
+
+#upperFooter #topicsFooter h1{
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+#upperFooter #topicsFooter p, a{
+    font-size: 1.6rem;
+}
+
+#upperFooter #topicsFooter p i{
+    color: #00bdae;
+}
+
+#upperFooter #topicsFooter a{
+    text-decoration: none;
+    color: var(--clr-accent-white);
+}
+
+#upperFooter hr {
+    width: 100%;
+    color: var(--clr-accent-white);
+}
+
+#upperFooter a {
+    width: 75px;
+    margin-block: 25px;
 }
 
 #lowerFooter {
@@ -188,13 +278,17 @@ header #iconsHeader {
     justify-content: center;
     align-items: center;
     font-size: 1.4rem;
-    font-family: var(--font-primary);
+    
     color: var(--clr-accent-white);
 }
 
-@media screen and (max-width: 1280px)  {
+@media screen and (max-width: 1180px)  {
     header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding-inline: 15px;
+        height: 80px;
     }
 
     header #logoName {
@@ -209,12 +303,50 @@ header #iconsHeader {
         font-size: 3rem;
     }
 
+    #upperHeader {
+        padding-top: 0px;
+    }
+
     #upperHeader #chageThemeButton, #userImage, #userImage img{
         display: none;
     }
 
     header #iconsHeader {
         width: 40px;
+    }
+
+    header #lowerHeader {
+        display: none;
+    }
+
+    #upperFooter {
+        margin-inline: 15px;
+    }
+
+    #upperFooter #topicsFooter {
+        flex-direction: column;
+    }
+
+    #upperFooter #topicsFooter button {
+        display: block;
+        background-color: transparent;
+        border: none;
+        color: var(--clr-accent-white);
+        font-size: 2rem;
+    }
+
+    #topicsFooter div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #upperFooter #topicsFooter h1{
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    #topicsFooter p, #topicsFooter a {
+        display: none;
     }
 }
 
