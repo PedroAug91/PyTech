@@ -105,6 +105,7 @@ header #iconsHeader {
     width: 160px;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #upperHeader #chageThemeButton {
@@ -130,10 +131,6 @@ header #iconsHeader {
     align-items: center;
 }
 
-#userMenu:hover #profileInfos{
-    display: block;
-}
-
 #upperHeader #userImage img {
     width: 35px;
     height: 35px;
@@ -142,7 +139,7 @@ header #iconsHeader {
 
 #profileInfos {
     min-height: 40px;
-    width: 140px;
+    width: 160px;
     background-color: var(--clr-primary);
     color: var(--clr-accent-white);
     font-size: 1.4rem;
@@ -150,13 +147,16 @@ header #iconsHeader {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 70px;
+    margin-top: 300px;
+    position: absolute;
+    z-index: 1;
     display: none;
 }
 
 #profileInfos hr {
     color: var(--clr-secondary);
     width: 80%;
+    margin-inline: 16px;
 }
 
 #upperHeader #shoppingCart {
@@ -195,7 +195,7 @@ header #iconsHeader {
 #lowerHeader {
     display: flex;
     align-items: center;
-    width: 1177.5px;
+    width: 1170px;
     height: 25px;
     background-color: var(--clr-secondary);
     border-top: 1px solid var(--clr-accent-white);
@@ -211,16 +211,20 @@ header #iconsHeader {
     align-items: center;
 }
 
-#lowerHeader div p{
+#lowerHeader div p, #lowerHeader a{
     width: 130px;
     height: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--clr-accent-white);
-    
     font-weight: bold;
     font-size: 1.4rem;
+    text-decoration: none;
+}
+
+#lowerHeader a {
+    height: 100%;
 }
 
 #lowerHeader div:hover {
