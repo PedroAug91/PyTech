@@ -5,12 +5,12 @@ from flask_hashing import Hashing
 
 app = create_app()
 
-db = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='labinfo',
-    database='PyTech'
-)
+# db = mysql.connector.connect(
+#     host='localhost',
+#     user='root',
+#     password='labinfo',
+#     database='PyTech'
+# )
 
 hashing = Hashing(app)
 
