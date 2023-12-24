@@ -33,6 +33,7 @@ header {
     height: 100px;
     box-shadow: 5px 4px 4px 0px rgba(0, 0, 0, 0.25);
     position: relative;
+    z-index: 9999;
 }
 
 header #logoName {
@@ -41,6 +42,24 @@ header #logoName {
 
 header #menuBars {
     display: none;
+}
+
+#menuMobile {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--clr-primary);
+    position: absolute;
+    left: 0;
+    margin-top: 570px;
+    display: block;
+    width: 50%;
+    z-index: 0;
+    margin-left: -50%;
+}
+
+#menuMobile a {
+    color: var(--clr-secondary);
+    text-decoration: none;
 }
 
 #upperHeader {
@@ -151,6 +170,12 @@ header #iconsHeader {
     position: absolute;
     z-index: 1;
     display: none;
+}
+
+#profileInfos a{
+    text-decoration: none;
+    color: var(--clr-accent-white);
+    font-size: 1.4rem;
 }
 
 #profileInfos hr {
@@ -303,6 +328,8 @@ footer {
     color: var(--clr-accent-white);
 }
 
+
+
 @media screen and (max-width: 1180px)  {
     header {
         display: flex;
@@ -322,6 +349,7 @@ footer {
         border: none;
         color: var(--clr-secondary);
         font-size: 3rem;
+        cursor: pointer;
     }
 
     #upperHeader {
@@ -342,6 +370,17 @@ footer {
 
     #upperFooter {
         margin-inline: 15px;
+    }
+
+    #upperHeader #userImageMobile {
+        display: flex;
+        align-items: center;
+    }
+    
+    #upperHeader #userImageMobile img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
     }
 
     #upperFooter #topicsFooter {

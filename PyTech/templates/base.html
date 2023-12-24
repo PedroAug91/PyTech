@@ -13,7 +13,7 @@
     <!-- header de todas as paginas -->
     <header>
         <div id="upperHeader">
-            <button id="menuBars"><i class="fa-solid fa-bars"></i></button>
+            <button id="menuBars" onclick="slideIn()"><i class="fa-solid fa-bars"></i></button>
             <a href="#upToStart"><img id="logoName" src="../static/img/logo/PyTech-nome.png" alt=""></a>
             <div id="search">
                 <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -31,7 +31,9 @@
                     </div>
                 </div>
                 <div onmouseover="showProfileInfos()" onmouseout="hideProfileInfos()" id="profileInfos">
-                    <p>Entrar / Cadastrar-se</p>
+                    <a href="/auth">
+                        <p>Entrar / Cadastrar-se</p>
+                    </a>
                     <hr>
                     <p class="logado">Meu perfil</p>
                     <hr class="logado"> 
@@ -40,6 +42,63 @@
                     <p class="logado">Meu histórico</p>
                     <hr class="logado"> 
                     <p class="logado">Sair</p>
+                </div>
+                <div id="menuMobile">
+                    <div id="authMobile">
+                        <a href="" id="userImageMobile"><img src="../static/img/playstationLlogo.jpg" alt=""></a>
+                        <a href="/auth">
+                            <p>Entrar / Cadastrar-se</p>
+                        </a>
+                    </div>
+                        
+                    <div>
+                        <a href="/category/celulares">
+                            <div class="navbar">
+                                <p>CELULARES</p>
+                            </div>
+                        </a>
+                        <a href="/category/computadores">
+                            <div class="navbar">
+                                <p>COMPUTADORES</p>
+                            </div>
+                        </a>    
+                        <a href="/category/eletronicos">
+                            <div class="navbar">
+                                <p>ELETRÔNICOS</p>
+                            </div>
+                        </a>
+                        <a href="/category/gamer">
+                            <div class="navbar">
+                                <p>GAMER</p>
+                            </div>
+                        </a>
+                        <a href="/category/perifericos">
+                            <div class="navbar">
+                                <p>PERIFÉRICOS</p>
+                            </div>
+                        </a>
+                        <a href="/category/smart-home">
+                            <div class="navbar">
+                                <p>SMART HOME</p>
+                            </div>
+                        </a>
+                        <a href="/category/smartwatches">
+                            <div class="navbar">
+                                <p>SMARTWATCHES</p>
+                            </div>
+                        </a>
+                        <a href="/category/tablets">
+                            <div class="navbar">
+                                <p>TABLETS</p>
+                            </div>
+                        </a>
+                        <a href="/category/tvs">
+                            <div class="navbar">
+                                <p>TVs</p>
+                            </div>
+                        </a>
+                    </div>
+                    <a href="#upToStart">Voltar para o topo</a>
                 </div>
             </div>
         </div>
@@ -135,7 +194,7 @@
     </footer>
 
     <!-- espaco para adicionarmos os codigos de JavaScript -->
-    <script src="https://kit.fontawesome.com/286fab062e.js" crossorigin="anonymous"></script>
+
     <script>
         function showProfileInfos() {
             var profileInfos = document.getElementById('profileInfos');
@@ -146,8 +205,13 @@
             var profileInfos = document.getElementById('profileInfos');
             profileInfos.style.display = 'none';
         }
-    </script>
 
+        function slideIn() {
+            var menuMobile = document.getElementById('menuMobile');
+            menuMobile.style.marginLeft('0%');
+         }
+    </script>
+    <script src="https://kit.fontawesome.com/286fab062e.js" crossorigin="anonymous"></script>
     {% block javascript %}
     {% endblock javascript %}
 </body>
