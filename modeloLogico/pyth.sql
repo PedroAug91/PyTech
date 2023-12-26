@@ -18,9 +18,10 @@ USE `pytech` ;
 -- Table `pytech`.`produto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`produto` (
-  `idproduto` INT NOT NULL,
+  `idproduto` INT NOT NULL AUTO_INCREMENT,
   `NomeProduto` VARCHAR(45) NOT NULL,
   `Preco` VARCHAR(45) NOT NULL,
+  `Descricao` VARCHAR(1000) NOT NULL,
   PRIMARY KEY (`idproduto`))
 ENGINE = InnoDB;
 
@@ -29,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`fornecedor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`fornecedor` (
-  `idfornecedor` INT NOT NULL,
+  `idfornecedor` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
   `CNPJ` VARCHAR(45) NOT NULL,
@@ -44,7 +45,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`cliente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`cliente` (
-  `idCliente` INT NOT NULL,
+  `idCliente` INT NOT NULL AUTO_INCREMENT,
   `CPF` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
@@ -57,7 +58,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`telefone`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`telefone` (
-  `idtelefone` INT NOT NULL,
+  `idtelefone` INT NOT NULL AUTO_INCREMENT,
   `Cliente_idCliente` INT NULL,
   `fornecedor_idfornecedor` INT NULL,
   PRIMARY KEY (`idtelefone`),
@@ -80,7 +81,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`endereco`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`endereco` (
-  `idEndereco` INT NOT NULL,
+  `idEndereco` INT NOT NULL AUTO_INCREMENT,
   `cidade` VARCHAR(45) NOT NULL,
   `bairro` VARCHAR(45) NOT NULL,
   `estado` VARCHAR(45) NOT NULL,
@@ -108,7 +109,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`carrinho`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`carrinho` (
-  `idcarrinho` INT NOT NULL,
+  `idcarrinho` INT NOT NULL AUTO_INCREMENT,
   `Cliente_idCliente` INT NOT NULL,
   PRIMARY KEY (`idcarrinho`),
   INDEX `fk_carrinho_Cliente1_idx` (`Cliente_idCliente` ASC) VISIBLE,
@@ -124,7 +125,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`venda`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`venda` (
-  `idvenda` INT NOT NULL,
+  `idvenda` INT NOT NULL AUTO_INCREMENT,
   `dataCompra` VARCHAR(45) NOT NULL,
   `carrinho_idcarrinho` INT NOT NULL,
   PRIMARY KEY (`idvenda`),
@@ -166,8 +167,8 @@ ENGINE = InnoDB;
 -- Table `pytech`.`imagemProduto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`imagemProduto` (
-  `idImagemProduto` INT NOT NULL,
-  `Caminho` VARCHAR(45) NOT NULL,
+  `idImagemProduto` INT NOT NULL AUTO_INCREMENT,
+  `Caminho` VARCHAR(1000) NOT NULL,
   `Imagem_idImagem` INT NOT NULL,
   `produto_idproduto` INT NOT NULL,
   PRIMARY KEY (`idImagemProduto`),
@@ -184,7 +185,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`estoque`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`estoque` (
-  `idestoque` INT NOT NULL,
+  `idestoque` INT NOT NULL AUTO_INCREMENT,
   `quantidade produto` VARCHAR(45) NOT NULL,
   `fornecedor_idfornecedor` INT NOT NULL,
   `produto_idproduto` INT NOT NULL,
@@ -208,7 +209,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`categoria`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`categoria` (
-  `idcategoria` INT NOT NULL,
+  `idcategoria` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idcategoria`))
@@ -219,7 +220,7 @@ ENGINE = InnoDB;
 -- Table `pytech`.`categoriaProduto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`categoriaProduto` (
-  `idcategoriaProduto` INT NOT NULL,
+  `idcategoriaProduto` INT NOT NULL AUTO_INCREMENT,
   `produto_idproduto` INT NOT NULL,
   `categoria_idcategoria` INT NOT NULL,
   PRIMARY KEY (`idcategoriaProduto`),
