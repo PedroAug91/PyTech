@@ -8,8 +8,8 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='010705',
-    database='PyTech'
+    password='labinfo',
+    database='pytech'
 )
 
 hashing = Hashing(app)
@@ -28,8 +28,9 @@ def admin():
 
 @app.route('/cadastrarProduto', methods=['POST'])
 def enviar():
-    i = request.form['idi']
-    m = request.form['mens']
+    nomeProduto = request.form['nome-produto']
+    preco = request.form['preco']
+    quant = request.form['quantidade']
     a = request.files['arq']
     
     ### Descobrir a extensao ###
@@ -38,7 +39,7 @@ def enviar():
     foto.png.jpg > "foto.png.jpg".rsplit('.',1) > ['foto.png', 'jpg'][1] > jpg
     '''
 
-    caminho = f'PyTech/static/img/produtos/{i}.{extensao}'
+    caminho = f'PyTech/static/img/produtos/{nomeProduto}.{extensao}'
     print(caminho)
     a.save(caminho)
     
@@ -48,27 +49,32 @@ def enviar():
            "(NomeProduto, Preco) "
            "VALUES (%s, %s)")
 
-    tupla = (i, m)
+    tupla = (nomeProduto, preco)
+    cursor.execute(sql, tupla)
+    cursor.close()
+    db.commit()
 
-    select = (f"SELECT idproduto "
-              "FROM produto "
-              "WHERE NomeProduto = '{i}'")
+    cursor = db.cursor(dictionary=True)
+    select = (f"SELECT idproduto FROM produto WHERE NomeProduto='{nomeProduto}'")
     cursor.execute(select)
     fetchdata = cursor.fetchall()
-    print(fetchdata)
+    
+    sql = ("INSERT INTO estoque (quantidade_produto, fornecedor_idfornecedor, produto_idproduto) VALUES (%s, %s, %s)")
+    
+    tupla = (int(quant), 1, fetchdata[0]['idproduto'])
+    cursor.execute(sql, tupla)
     
     sql2 = ("INSERT INTO imagemproduto "
         "(Caminho, produto_idproduto) "
         "VALUES (%s, %s)")
 
-    tupla2 = (caminho, fetchdata)
+    tupla2 = (caminho, fetchdata[0]['idproduto'])
     
     cursor.execute(sql2, tupla2)
-    cursor.execute(sql, tupla)
-    db.commit()
     cursor.close()
+    db.commit()
 
-    return ('<h1>Deu Bom</h1>')
+    return render_template('teste.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -12,12 +12,17 @@
             <form action="cadastrarProduto" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="idi" class="form-label">Nome Produto</label>
-                    <input type="text" name="idi" id="idi" class="form-control" required>
+                    <input type="text" name="nome-produto" id="idi" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="mens" class="form-label">Preço</label>
-                    <input type="number" min="1" step="any" name="mens" id="mens" class="form-control" required>
+                    <input type="number" min="1" step="any" name="preco" id="mens" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mens" class="form-label">Quantidade</label>
+                    <input type="number" min="1" step="any" name="quantidade" id="mens" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
