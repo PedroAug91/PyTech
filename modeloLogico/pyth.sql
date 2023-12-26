@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `pytech`.`produto` (
   `idproduto` INT NOT NULL AUTO_INCREMENT,
   `NomeProduto` VARCHAR(45) NOT NULL,
   `Preco` VARCHAR(45) NOT NULL,
-  `Descricao` VARCHAR(1000) NOT NULL,
+  `Descricao` VARCHAR(500) NOT NULL DEFAULT '',
   PRIMARY KEY (`idproduto`))
 ENGINE = InnoDB;
 
@@ -168,8 +168,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`imagemProduto` (
   `idImagemProduto` INT NOT NULL AUTO_INCREMENT,
-  `Caminho` VARCHAR(1000) NOT NULL,
-  `Imagem_idImagem` INT NOT NULL,
+  `Caminho` VARCHAR(255) NOT NULL,
   `produto_idproduto` INT NOT NULL,
   PRIMARY KEY (`idImagemProduto`),
   INDEX `fk_ImagemProduto_produto1_idx` (`produto_idproduto` ASC) VISIBLE,
