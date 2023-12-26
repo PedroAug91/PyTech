@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `pytech`.`produto` (
   `NomeProduto` VARCHAR(45) NOT NULL,
   `Preco` VARCHAR(45) NOT NULL,
   `Descricao` VARCHAR(500) NOT NULL DEFAULT '',
-  PRIMARY KEY (`idproduto`))
+  PRIMARY KEY (`idproduto`),
+  UNIQUE INDEX `Nome_UNIQUE` (`NomeProduto` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -31,10 +32,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`fornecedor` (
   `idfornecedor` INT NOT NULL AUTO_INCREMENT,
-  `Nome` VARCHAR(45) NOT NULL,
-  `Email` VARCHAR(45) NOT NULL,
+  `RazaoSocial` VARCHAR(45) NOT NULL,
+  `Email` VARCHAR(255) NOT NULL,
   `CNPJ` VARCHAR(45) NOT NULL,
   `Senha` VARCHAR(45) NOT NULL,
+  `InscricaoEstadual` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idfornecedor`),
   UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) VISIBLE,
   UNIQUE INDEX `CNPJ_UNIQUE` (`CNPJ` ASC) VISIBLE)
@@ -185,7 +187,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pytech`.`estoque` (
   `idestoque` INT NOT NULL AUTO_INCREMENT,
-  `quantidade produto` VARCHAR(45) NOT NULL,
+  `quantidade_produto` INT NOT NULL,
   `fornecedor_idfornecedor` INT NOT NULL,
   `produto_idproduto` INT NOT NULL,
   PRIMARY KEY (`idestoque`),
