@@ -8,11 +8,25 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='labinfo',
+    password='010705',
     database='pytech'
 )
 
 hashing = Hashing(app)
+
+@app.route('/', methods=['GET'])
+def homepage():
+    cursor = db.cursor(dictionary=True)
+    select = "SELECT * FROM produto"
+    cursor.execute(select)
+    fetchdata = cursor.fetchall()
+    
+    select = "SELECT * FROM imagemproduto"
+    cursor.execute(select)
+    fetchdata2 = cursor.fetchall()
+    print(fetchdata2)
+    
+    return render_template("homepage.html", title="Página Principal", produtos=fetchdata, imagens=fetchdata2)
 
 @app.route("/product/<produto>")
 def produto(produto):
@@ -40,8 +54,9 @@ def enviar():
     '''
 
     caminho = f'PyTech/static/img/produtos/{nomeProduto}.{extensao}'
-    print(caminho)
     a.save(caminho)
+    
+    caminhoBD = f'../static/img/produtos/{nomeProduto}.{extensao}'
     
     cursor = db.cursor(dictionary=True)
 
@@ -68,7 +83,7 @@ def enviar():
         "(Caminho, produto_idproduto) "
         "VALUES (%s, %s)")
 
-    tupla2 = (caminho, fetchdata[0]['idproduto'])
+    tupla2 = (caminhoBD, fetchdata[0]['idproduto'])
     
     cursor.execute(sql2, tupla2)
     cursor.close()

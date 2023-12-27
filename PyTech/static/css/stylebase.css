@@ -51,7 +51,7 @@ header #menuBars {
     position: absolute;
     left: 0;
     margin-top: 570px;
-    display: block;
+    display: none;
     width: 50%;
     z-index: 0;
     margin-left: -50%;
