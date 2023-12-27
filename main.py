@@ -8,7 +8,7 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='010705',
+    password='labinfo',
     database='pytech'
 )
 
