@@ -239,7 +239,9 @@ CREATE TABLE IF NOT EXISTS `pytech`.`categoriaProduto` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
+INSERT INTO fornecedor (RazaoSocial, Email, CNPJ, Senha, InscricaoEstadual) VALUES
+	('pytech', 'pytech@gmail.com', '01.220.330/0001-30', '1234', '123.456.789.012');
+    
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
