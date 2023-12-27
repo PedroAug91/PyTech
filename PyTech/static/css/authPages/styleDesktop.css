@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     background-color: var(--clr-primary);
+    font-family: 'Roboto Slab';
 }
 
 /* Container que guarda a imagem e o form  */
@@ -19,6 +20,7 @@
     margin-inline: 20px;
 }
 
+/* container que guarda a imagem da personagem */
 #backgroundImage {
     height: 100%;
     width: 45%;
@@ -33,6 +35,7 @@
     margin-left: -70px;
 }
 
+/* Container que guarda os inputs e o form de signup */
 #rightContainer {
     width: 55%;
 }
@@ -42,4 +45,125 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.title-signup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.title-signup h1 {
+    font-size: 3.2rem;
+    color: var(--clr-accent-white);
+    position: relative;
+    right: 10px;
+}
+
+.title-signup button{
+    font-size: 3rem;
+    color: var(--clr-secondary);
+    position: relative;
+    right: 80px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.subtitle-signup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.subtitle-signup h2 {
+    color: var(--clr-secondary);
+    font-size: 2.2rem;
+}
+
+.subtitle-signup h3 {
+    color: var(--clr-accent-white);
+    font-weight: 100;
+    font-size: 1.2rem;
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+    place-items: center;
+}
+
+.inputs input {
+    width: 345px;
+    height: 50px;
+    border: 2px solid var(--clr-secondary);
+    border-radius: 5px;
+    background-color: transparent;
+    font-size: 1.8rem;
+    color: var(--clr-accent-white);
+    padding-inline: 5px;
+}
+
+.inputs div p {
+    font-size: 2rem;
+    color: var(--clr-accent-white);
+}
+
+.inputs button{
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: var(--clr-secondary);
+    border: none;
+    color: var(--clr-accent-white);
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 1420px) {
+    #signupContainer {
+        display: flex;
+        max-width: 1414px;
+        width: 100%;
+        min-height: 100%;
+        border: none;
+        margin-top: 150px;
+        margin-bottom: 350px;
+        border-radius: 10px;
+        margin-inline: 20px;
+        justify-content: center;
+    }
+
+    #backgroundImage {
+        display: none;
+    }
+    
+    .inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .title-signup {
+        margin-top: 150px;
+    }
+
+    .title-signup h1 {
+        font-size: 2.8rem;
+        position: relative;
+    }
+
+    .inputs a {
+        grid-row: 8 / 8;
+    }
+
+    .inputs button {
+        margin-top: 20px;
+        grid-row: 7 / 8;
+    }
 }

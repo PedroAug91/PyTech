@@ -28,6 +28,10 @@ def homepage():
     
     return render_template("homepage.html", title="Página Principal", produtos=fetchdata, imagens=fetchdata2)
 
+@app.route("/signup", methods=['POST'])
+def signup():
+    pass
+
 @app.route("/product/<produto>")
 def produto(produto):
     return render_template('productPage.html')
@@ -35,6 +39,7 @@ def produto(produto):
 @app.route("/user/usuario")
 def usuario(usuario):
     return render_template('productPage.html')
+
 
 @app.route("/admin")
 def admin():

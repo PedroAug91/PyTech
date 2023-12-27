@@ -11,29 +11,41 @@
             </div>
             <div id="rightContainer">
                 <div class="title-signup">
-                    <i class="fa-solid fa-chevron-left"></i>
+                    <button><i class="fa-solid fa-chevron-left"></i></button>
                     <h1>CRIAR CONTA</h1>
                 </div>
                 <div class="subtitle-signup">
                     <h2>Pessoa Física</h2>
+                    <h3>(*) campos obrigatórios</h3>
                 </div>
                 <div class="forms-signup">
                     <form id="form-signup" action="signup" method="post">
                         <div class="inputs">
-                            <p>Nome *</p>
-                            <input type="text" name="name">
-                            <p>Sobrenome *</p>
-                            <input type="text" name="last-name">
-                            <p>CPF *</p>
-                            <input type="text" name="username">
-                            <p>Email *</p>
-                            <input type="email" name="email">
-                            <p>Telefone *</p>
-                            <input type="text" name="Telephone">
-                            <p>Senha *</p>
-                            <input class="password" maxlength="16" class="password" maxlength="16" type="password" name="password">
-                        </div>
-                        <div class="footing">
+                            <div>
+                                <p>Nome *</p>
+                                <input type="text" name="name">
+                            </div>
+                            <div>
+                                <p>Sobrenome *</p>
+                                <input type="text" name="last-name">
+                            </div>
+
+                            <div>
+                                <p>CPF *</p>
+                                <input type="text" name="username">
+                            </div>
+                            <div>
+                                <p>Email *</p>
+                                <input type="email" name="email">
+                            </div>
+                            <div>
+                                <p>Telefone *</p>
+                                <input type="text" name="Telephone">
+                            </div>
+                            <div>
+                                <p>Senha *</p>
+                                <input class="password" maxlength="16" class="password" maxlength="16" type="password" name="password">
+                            </div>
                             <a href="/signin">Já tem uma conta?</a>
                             <button type="submit" id="btn-registrar" value="registrar">Cadastrar</button>
                         </div>
