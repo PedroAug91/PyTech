@@ -345,6 +345,7 @@ footer {
 */
 
 .card {
+    color: var(--clr-accent-white);
     min-height: 328px;
     max-width: 250px;
     background-color: var(--clr-secondary);
@@ -370,6 +371,7 @@ footer {
     margin-inline: auto;
     color: var(--clr-accent-white);
     margin-block: 12px 8px;
+    opacity: 50%;
 }
 
 .product-name {
@@ -397,6 +399,39 @@ footer {
     font-size: 14px;
     max-width: 210px;
     font-family: var(--font-primary);
+}
+
+.red {
+    color: var(--clr-accent-red);
+}
+
+/*
+    Estilo para os títulos que ficarão em cada seção, tanto no resposívo quanto no desktop.
+*/
+
+
+
+.section-heading {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.section-icon {
+    color: var(--clr-secondary);
+}
+
+.section-title {
+    color: var(--clr-accent-white);
+    font-family: var(--font-primary);
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.orange {
+    color: var(--clr-secondary);
 }
 
 @media screen and (max-width: 1180px)  {

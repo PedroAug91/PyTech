@@ -4,12 +4,14 @@
     <link rel="stylesheet" href="..\static\css\homepage\stylemobile.css">
 {% endblock static %}
 {% block content %}
+    <section class="hero" id="upToStart">
+        <img src="../static/img/heroPyTech.png" alt="">
+    </section>
     <section class="recents-section">
-        <h1>Dicionários</h1>
-        <p> {{ produtos }}</p>
-        <p> {{ imagens }}</p>
-        <i class="fa-regular fa-clock"></i>
-        <h1>Adicionados recentemente<span class="orange">.</span></h1>
+        <div class="section-heading">
+            <i class="fa-regular fa-clock fa-3x section-icon"></i>
+            <h1 class="section-title">Adicionados recentemente<span class="orange">.</span></h1>
+        </div>
         <div class="cards-container">
             {% if produtos != [] %}
                 {% for produto in produtos %}
