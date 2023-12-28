@@ -4,20 +4,31 @@
     <link rel="stylesheet" href="..\static\css\homepage\stylemobile.css">
 {% endblock static %}
 {% block content %}
-    <h1>Dicionários</h1>
-    <p> {{ produtos }}</p>
-    <p> {{ imagens }}</p>
-    {% for produto in produtos %}
-        {% for imagem in imagens%}
-            {% if produto['id_produto'] == imagem['id_produto'] %}
-                <li>
-                    <img src="{{ imagem.caminho }}" alt="">
-                    <strong>ID do Produto:</strong> {{ produto.id_produto }}<br>
-                    <strong>Nome do Produto:</strong> {{ produto.nome_produto }}<br>
-                    <strong>Preço:</strong> R$ {{ produto.preco }}<br>
-                    <strong>Descrição:</strong> {{ produto.descricao }}<br>
-                </li>
+    <section class="recents-section">
+        <h1>Dicionários</h1>
+        <p> {{ produtos }}</p>
+        <p> {{ imagens }}</p>
+        <i class="fa-regular fa-clock"></i>
+        <h1>Adicionados recentemente<span class="orange">.</span></h1>
+        <div class="cards-container">
+            {% if produtos != [] %}
+                {% for produto in produtos %}
+                    {% for imagem in imagens%}
+                        {% if produto['id_produto'] == imagem['id_produto'] %}
+                        <div class="card">
+                                <div class="img-container"><img class="card-image" src="{{ imagem.caminho }}" alt=""></div>
+                                <hr class="card-line">
+                                <h1 class="product-name" >{{ produto.nome_produto }}</h1>
+                                <h2 class="product-price">R${{ produto.preco }}</h2>
+                                <p class="product-description">{{ produto.descricao }}</p>
+                        </div>
+                        {% else %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% else %}
+                <h2>Lamentamos, mas não há nenhum produto em nosso catálogo. =(</h2>
             {% endif %}
-        {% endfor %}
-    {% endfor %}
+        </div>
+    </section>
 {% endblock content %}

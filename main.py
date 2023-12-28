@@ -39,7 +39,7 @@ def usuario(usuario):
 def admin():
     return render_template('admin.html')
 
-@app.route('/CadastrarProduto', methods=['POST'])
+@app.route('/cadastrarProduto', methods=['POST'])
 def enviar():
     nomeProduto = request.form['nome-produto']
     preco = request.form['preco']

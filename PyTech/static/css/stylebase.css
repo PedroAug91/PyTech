@@ -25,6 +25,17 @@ html {
     font-family: var(--font-primary);
 }
 
+section {
+    max-width: 1420px;
+    margin-inline: auto;
+}
+
+body {
+    background-color: var(--clr-primary);
+}
+
+
+
 header {
     display: flex;
     flex-direction: column;
@@ -262,6 +273,7 @@ header #iconsHeader {
 
 footer {
     background-color: var(--clr-secondary);
+    margin-top: 15rem;
 }
 
 #upperFooter {
@@ -328,7 +340,64 @@ footer {
     color: var(--clr-accent-white);
 }
 
+/*
+ Estilo para os cards que serão utlizados na página principal e na página de pesquisa de um produto.
+*/
 
+.card {
+    min-height: 328px;
+    max-width: 250px;
+    background-color: var(--clr-secondary);
+    border-radius: 10px;
+}
+
+.card-image {
+    width: 250px;
+    height: 164px;
+    object-fit: contain;
+    border-radius: 10px 10px 0 0;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px 10px 0 0;
+    background-color: var(--clr-accent-white);
+}
+
+.card-line {
+    width: 210px;
+    margin-inline: auto;
+    color: var(--clr-accent-white);
+    margin-block: 12px 8px;
+}
+
+.product-name {
+    max-width: 210px;
+    max-height: 40px;
+    font-size: 16px;
+    font-family: var(--font-primary);
+    margin-inline: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+
+.product-price {
+    max-width: 210px;
+    font-size: 24px;
+    font-family: var(--font-primary);
+    margin-inline: auto;
+    margin-block: 17px;
+}
+
+.product-description {
+    margin-inline: auto;
+    font-size: 14px;
+    max-width: 210px;
+    font-family: var(--font-primary);
+}
 
 @media screen and (max-width: 1180px)  {
     header {
