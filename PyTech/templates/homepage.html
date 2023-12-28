@@ -4,11 +4,20 @@
     <link rel="stylesheet" href="..\static\css\homepage\stylemobile.css">
 {% endblock static %}
 {% block content %}
-    <section class="hero" id="upToStart">
-        <img src="../static/img/heroPyTech.png" alt="">
-        {% if produtos == [] %}
-        {% else %}
-            {% for produto in produtos  %}
-        {% endif %}
-    </section>
+    <h1>Dicionários</h1>
+    <p> {{ produtos }}</p>
+    <p> {{ imagens }}</p>
+    {% for produto in produtos %}
+        {% for imagem in imagens%}
+            {% if produto['id_produto'] == imagem['id_produto'] %}
+                <li>
+                    <img src="{{ imagem.caminho }}" alt="">
+                    <strong>ID do Produto:</strong> {{ produto.id_produto }}<br>
+                    <strong>Nome do Produto:</strong> {{ produto.nome_produto }}<br>
+                    <strong>Preço:</strong> R$ {{ produto.preco }}<br>
+                    <strong>Descrição:</strong> {{ produto.descricao }}<br>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
 {% endblock content %}
