@@ -21,6 +21,8 @@ create table Fornecedor (
 
 create table Cliente (
     id_cliente int not null AUTO_INCREMENT primary key,
+    nome varchar(100) not null,
+    sobrenome varchar(100) not null,
     cpf varchar(45) not null,
     email varchar(45) not null,
     senha varchar(45) not null,
