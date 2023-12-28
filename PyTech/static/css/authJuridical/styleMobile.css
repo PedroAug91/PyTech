@@ -1,0 +1,44 @@
+@media screen and (max-width: 1420px) {
+    #signupContainer {
+        display: flex;
+        max-width: 1414px;
+        width: 100%;
+        min-height: 100%;
+        border: none;
+        margin-top: 150px;
+        margin-bottom: 350px;
+        border-radius: 10px;
+        margin-inline: 20px;
+        justify-content: center;
+    }
+
+    #backgroundImage {
+        display: none;
+    }
+
+    #backgroundImageRight {
+        display: none;
+    }
+    
+    .inputs, .inputs-signin {
+        grid-template-columns: 1fr;
+    }
+
+    .title-signup {
+        margin-top: 150px;
+    }
+
+    .title-signup h1 {
+        font-size: 2.8rem;
+        position: relative;
+    }
+
+    .inputs #haveAccount, .inputs-signin #createAccount{
+        grid-row: 8 / 8;
+    }
+
+    .inputs button, .inputs-signin button {
+        margin-top: 20px;
+        grid-row: 7 / 8;
+    }
+}

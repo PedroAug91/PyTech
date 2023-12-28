@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block static %}
+    <link rel="stylesheet" href="..\static\css\authJuridical\styledesktop.css">
+    <link rel="stylesheet" href="..\static\css\authJuridical\stylemobile.css">
+{% endblock static %}
+{% block content %}
+    <section id="signupSection">
+        <div id="signupContainer">
+            <div id="leftContainer">
+                <div id="titleSignin" class="title-signin">
+                    <h1>ENTRAR</h1>
+                    <button onclick="toSignup()"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div id="subtitleSignin" class="subtitle-signin">
+                    <h3>(*) campos obrigatórios</h3>
+                </div>
+                <div id="formsSignin" class="forms-signin">
+                    <form id="form-signin" action="signin" method="get" enctype="multipart/form-data">
+                        <div class="inputs-signin">
+                            <div>
+                                <p>Nome, CNPJ ou CPF*</p>
+                                <input type="text" name="name-cnpj-cpf" required>
+                            </div>
+                            <div>
+                                <p>Senha *</p>
+                                <input class="password" maxlength="16" class="password" maxlength="16" type="password" name="password" required>
+                            </div>
+                            <button id="createAccount" onclick="toSignup()">Criar uma conta</button>
+                            <button type="submit" id="btn-registrar" value="registrar">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="backgroundImageRight">
+                <img id="signinImg" src="../static/img/authImg/homemTelaSignin.png" alt="">
+            </div>
+            <div id="backgroundImage">
+                <img id="signupImg" src="../static/img/authImg/velhoTelaSignup.png" alt="">
+            </div>
+            <div id="rightContainer">
+                <div class="title-signup">
+                    <button onclick="toSignin()"><i class="fa-solid fa-chevron-left"></i></button>
+                    <h1>CRIAR CONTA</h1>
+                </div>
+                <div class="subtitle-signup">
+                    <h2>Pessoa Jurídica</h2>
+                    <h3>(*) campos obrigatórios</h3>
+                </div>
+                <div class="forms-signup">
+                    <form id="form-signup" action="signupJuridical" method="post" enctype="multipart/form-data">
+                        <div class="inputs">
+                            <div>
+                                <p>Razão Social *</p>
+                                <input type="text" name="social-reason" required>
+                            </div>
+                            <div>
+                                <p>CNPJ *</p>
+                                <input type="text" name="cnpj" required>
+                            </div>
+
+                            <div>
+                                <p>Email *</p>
+                                <input type="email" name="email" required>
+                            </div>
+                            <div>
+                                <p>Telefone *</p>
+                                <input type="text" name="telephone" required>
+                            </div>
+                            <div>
+                                <p>Senha *</p>
+                                <input class="password" maxlength="16" class="password" maxlength="16" type="password" name="password" required>
+                            </div>
+                            <div>
+                                <p>Inscrição Estadual *</p>
+                                <input type="text" name="state-registration" required>
+                            </div>
+                            <button id="haveAccount" onclick="toSignin()">Já tem uma conta?</button>
+                            <button type="submit" id="btn-registrar" value="registrar">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block javascript %}
+    <script>
+        function toSignin() {
+            var rightContainer = document.getElementById('rightContainer');
+            rightContainer.style.display = 'none';
+            var signupImg = document.getElementById('signupImg');
+            signupImg.style.display = 'none';
+            var backgoundImage = document.getElementById('backgroundImage');
+            backgoundImage.style.display = 'none';
+
+            var formsSignin = document.getElementById('formsSignin');
+            formsSignin.style.display = 'block';
+            var subtitleSignin = document.getElementById('subtitleSignin');
+            subtitleSignin.style.display = 'flex';
+            var titleSignin = document.getElementById('titleSignin');
+            titleSignin.style.display = 'flex';
+
+            var leftContainer = document.getElementById('leftContainer');
+            leftContainer.style.display = 'flex';
+            var backgroundImageRight = document.getElementById('backgroundImageRight');
+            backgroundImageRight.style.display = 'block';
+        }
+
+        function toSignup() {
+            var rightContainer = document.getElementById('rightContainer');
+            rightContainer.style.display = 'flex';
+            var signupImg = document.getElementById('signupImg');
+            signupImg.style.display = 'block';
+            var backgoundImage = document.getElementById('backgroundImage');
+            backgoundImage.style.display = 'block';
+
+            var formsSignin = document.getElementById('formsSignin');
+            formsSignin.style.display = 'none';
+            var subtitleSignin = document.getElementById('subtitleSignin');
+            subtitleSignin.style.display = 'none';
+            var titleSignin = document.getElementById('titleSignin');
+            titleSignin.style.display = 'none';
+
+            var leftContainer = document.getElementById('leftContainer');
+            leftContainer.style.display = 'none';
+            var backgroundImageRight = document.getElementById('backgroundImageRight');
+            backgroundImageRight.style.display = 'none';
+        }
+    </script>
+{% endblock javascript %}
+{% endblock content %}

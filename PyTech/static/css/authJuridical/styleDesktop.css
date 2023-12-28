@@ -1,0 +1,180 @@
+#signupSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--clr-primary);
+    font-family: 'Roboto Slab';
+}
+
+/* Container que guarda a imagem e o form  */
+#signupContainer {
+    display: flex;
+    max-width: 1414px;
+    width: 100%;
+    height: 744px;
+    background-color: transparent;
+    border: 3px solid var(--clr-secondary);
+    margin-top: 80px;
+    margin-bottom: 150px;
+    border-radius: 10px;
+    margin-inline: 20px;
+    
+}
+
+/* container que guarda a imagem da personagem */
+#backgroundImage , #backgroundImageRight{
+    height: 100%;
+    width: 45%;
+    background-color: var(--clr-secondary);
+}
+
+#signupImg {
+    position: absolute;
+    max-height: 100%;
+    max-width: 100%;
+    margin-top: -24px;
+    margin-left: -80px;
+}
+
+#signinImg {
+    position: absolute;
+    max-height: 100%;
+    max-width: 100%;
+    margin-top: -35px;
+    margin-right: -50px;
+}
+
+/* Container que guarda os inputs e o form de signup */
+#rightContainer, #leftContainer{
+    width: 55%;
+}
+
+#rightContainer, #leftContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#leftContainer {
+    display: none;
+}
+
+.title-signup, #titleSignin{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.title-signup h1, #titleSignin h1{
+    font-size: 3.2rem;
+    color: var(--clr-accent-white);
+    position: relative;
+    right: 10px;
+}
+
+#titleSignin h1 {
+    left: 10px;
+}
+
+.title-signup button, #titleSignin button{
+    font-size: 3rem;
+    color: var(--clr-secondary);
+    position: relative;
+    right: 80px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#titleSignin button {
+    left: 80px;
+}
+
+.subtitle-signup, #subtitleSignin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.subtitle-signup h2 {
+    color: var(--clr-secondary);
+    font-size: 2.2rem;
+}
+
+.subtitle-signup h3, #subtitleSignin h3{
+    color: var(--clr-accent-white);
+    font-weight: 100;
+    font-size: 1.2rem;
+}
+
+#subtitleSignin {
+    display: none;
+}
+
+#titleSignin {
+    display: none;
+}
+
+#formsSignin {
+    display: none;
+}
+
+#backgroundImageRight {
+    display: none;
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+    place-items: center;
+}
+
+.inputs-signin {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    place-items: center;
+}
+
+.inputs input, .inputs-signin input {
+    width: 345px;
+    height: 50px;
+    border: 2px solid var(--clr-secondary);
+    border-radius: 5px;
+    background-color: transparent;
+    font-size: 1.8rem;
+    color: var(--clr-accent-white);
+    padding-inline: 5px;
+}
+
+.inputs div p, .inputs-signin div p {
+    font-size: 2rem;
+    color: var(--clr-accent-white);
+}
+
+.inputs button, .inputs-signin button{
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: var(--clr-secondary);
+    border: none;
+    color: var(--clr-accent-white);
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.inputs #haveAccount, .inputs-signin #createAccount {
+    text-transform: none;
+    background-color: transparent;
+    border: none;
+    font-size: 1.8rem;
+}
