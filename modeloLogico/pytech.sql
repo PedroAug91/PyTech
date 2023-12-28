@@ -15,6 +15,7 @@ create table Fornecedor (
     email varchar(255) not null,
     cnpj varchar(45) not null,
     inscricao_estadual varchar(45) not null,
+    descricao varchar(500) not null,
     constraint email_unico unique (email),
     constraint cnpj_unico unique (cnpj)
 );
@@ -34,6 +35,7 @@ create table Telefone (
     id_telefone int not null AUTO_INCREMENT primary key,
     id_cliente int null,
     id_fornecedor int null,
+    telefone varchar(15) not null,
     foreign key(id_cliente) references Cliente(id_cliente),
     foreign key(id_fornecedor) references Fornecedor(id_fornecedor)
 );
@@ -79,6 +81,13 @@ create table Imagem_Produto (
     caminho varchar(500) not null,
     id_produto int not null,
     foreign key(id_produto) references Produto(id_produto)
+);
+
+create table Imagem_Fornecedor (
+    id_imagem_fornecedor int not null AUTO_INCREMENT primary key,
+    caminho varchar(500) not null,
+    id_fornecedor int not null,
+    foreign key(id_fornecedor) references Fornecedor(id_fornecedor)
 );
 
 create table Estoque (
