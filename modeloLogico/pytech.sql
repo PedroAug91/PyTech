@@ -14,6 +14,7 @@ create table Fornecedor (
     razao_social varchar(45) not null,
     email varchar(255) not null,
     cnpj varchar(45) not null,
+    senha varchar(45) not null,
     inscricao_estadual varchar(45) not null,
     descricao varchar(500) not null,
     constraint email_unico unique (email),
