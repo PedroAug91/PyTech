@@ -4,18 +4,18 @@
     <link rel="stylesheet" href="..\static\css\homepage\stylemobile.css">
 {% endblock static %}
 {% block content %}
-    <h1>Lista de produtos</h1>
+    <h1>Dicionários</h1>
     <p> {{ produtos }}</p>
     <p> {{ imagens }}</p>
     {% for produto in produtos %}
         {% for imagem in imagens%}
-            {% if produto['idproduto'] == imagem['produto_idproduto'] %}
+            {% if produto['id_produto'] == imagem['id_produto'] %}
                 <li>
-                    <img src="{{ imagem.Caminho }}" alt="">
-                    <strong>ID do Produto:</strong> {{ produto.idproduto }}<br>
-                    <strong>Nome do Produto:</strong> {{ produto.NomeProduto }}<br>
-                    <strong>Preço:</strong> R$ {{ produto.Preco }}<br>
-                    <strong>Descrição:</strong> {{ produto.Descricao }}<br>
+                    <img src="{{ imagem.caminho }}" alt="">
+                    <strong>ID do Produto:</strong> {{ produto.id_produto }}<br>
+                    <strong>Nome do Produto:</strong> {{ produto.nome_produto }}<br>
+                    <strong>Preço:</strong> R$ {{ produto.preco }}<br>
+                    <strong>Descrição:</strong> {{ produto.descricao }}<br>
                 </li>
             {% endif %}
         {% endfor %}

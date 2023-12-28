@@ -17,11 +17,11 @@ hashing = Hashing(app)
 @app.route('/', methods=['GET'])
 def homepage():
     cursor = db.cursor(dictionary=True)
-    select = "SELECT * FROM produto"
+    select = "SELECT * FROM Produto"
     cursor.execute(select)
     fetchdata = cursor.fetchall()
     
-    select = "SELECT * FROM imagemproduto"
+    select = "SELECT * FROM Imagem_Produto"
     cursor.execute(select)
     fetchdata2 = cursor.fetchall()
     print(fetchdata2)
@@ -60,8 +60,8 @@ def enviar():
     
     cursor = db.cursor(dictionary=True)
 
-    sql = ("INSERT INTO produto "
-           "(NomeProduto, Preco) "
+    sql = ("INSERT INTO Produto "
+           "(nome_produto, preco) "
            "VALUES (%s, %s)")
 
     tupla = (nomeProduto, preco)
@@ -70,20 +70,20 @@ def enviar():
     db.commit()
 
     cursor = db.cursor(dictionary=True)
-    select = (f"SELECT idproduto FROM produto WHERE NomeProduto='{nomeProduto}'")
+    select = (f"SELECT id_produto FROM Produto WHERE nome_produto='{nomeProduto}'")
     cursor.execute(select)
     fetchdata = cursor.fetchall()
     
-    sql = ("INSERT INTO estoque (quantidade_produto, fornecedor_idfornecedor, produto_idproduto) VALUES (%s, %s, %s)")
+    sql = ("INSERT INTO estoque (quantidade, id_fornecedor, id_produto) VALUES (%s, %s, %s)")
     
-    tupla = (int(quant), 1, fetchdata[0]['idproduto'])
+    tupla = (int(quant), 1, fetchdata[0]['id_produto'])
     cursor.execute(sql, tupla)
     
-    sql2 = ("INSERT INTO imagemproduto "
-        "(Caminho, produto_idproduto) "
+    sql2 = ("INSERT INTO imagem_produto "
+        "(caminho, id_produto) "
         "VALUES (%s, %s)")
 
-    tupla2 = (caminhoBD, fetchdata[0]['idproduto'])
+    tupla2 = (caminhoBD, fetchdata[0]['id_produto'])
     
     cursor.execute(sql2, tupla2)
     cursor.close()
