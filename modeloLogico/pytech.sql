@@ -1,51 +1,103 @@
-CREATE DATABASE PyTech DEFAULT CHARACTER SET utf8;
+CREATE DATABASE if not exists PyTech DEFAULT CHARACTER SET utf8;
 USE PyTech;
 
-create table 'Produto' (
-    'Id_Produto' int not null AUTO_INCREMENT primary key,
-    'Nome_Produto' varchar(500) not null,
-    'Preco' varchar(45) not null,
-    'Descricao' varchar(1000) not null default ''
+create table Produto (
+    id_produto int not null AUTO_INCREMENT primary key,
+    nome_produto varchar(500) not null,
+    preco varchar(45) not null,
+    descricao varchar(1000) not null default '',
+    constraint nome_unico unique (nome_produto)
 );
 
-create table 'Fornecedor' (
-    'Id_Fornecedor' int not null AUTO_INCREMENT primary key,
-    'Razao_Social' varchar(45) not null,
-    'Email' varchar(255) not null,
-    'CNPJ' varchar(45) not null,
-    'Inscricao_Estadual' varchar(45) not null
+create table Fornecedor (
+    id_fornecedor int not null AUTO_INCREMENT primary key,
+    razao_social varchar(45) not null,
+    email varchar(255) not null,
+    cnpj varchar(45) not null,
+    inscricao_estadual varchar(45) not null,
+    constraint email_unico unique (email),
+    constraint cnpj_unico unique (cnpj)
 );
 
-create table 'Cliente' (
-    'Id_Cliente' int not null AUTO_INCREMENT primary key,
-    'CPF' varchar(45) not null,
-    'Email' varchar(45) not null,
-    'Senha' varchar(45) not null
+create table Cliente (
+    id_cliente int not null AUTO_INCREMENT primary key,
+    cpf varchar(45) not null,
+    email varchar(45) not null,
+    senha varchar(45) not null,
+    constraint email_unico unique (email),
+    constraint cpf_unico unique (cpf)
 );
 
-create table 'Telefone' (
-    'Id_Telefone' int not null AUTO_INCREMENT primary key,
-    'Id_Cliente' int null,
-    'Id_Fornecedor' int null,
-    foreign key(Id_Cliente) references Cliente(ID_Cliente),
-    foreign key(Id_Fornecedor) references Fornecedor(Id_Fornecedor),
+create table Telefone (
+    id_telefone int not null AUTO_INCREMENT primary key,
+    id_cliente int null,
+    id_fornecedor int null,
+    foreign key(id_cliente) references Cliente(id_cliente),
+    foreign key(id_fornecedor) references Fornecedor(id_fornecedor)
 );
 
-create table 'Endereco' (
-    'Id_Endereco' int not null AUTO_INCREMENT primary key,
-    'Cidade' varchar(45) not null,
-    'Bairro' varchar(45) not null,
-    'Estado' varchar(45) not null,
-    'Rua' varchar(45) not null,
-    'Numero_Casa' int not null,
-    'Id_Cliente' int null,
-    'Id_Fornecedor' int null,
-    foreign key(Id_Cliente) references Cliente(Id_Cliente),
-    foreign key(Id_Fornecedor) references Fornecedor(Id_Fornecedor)
-)
+create table Endereco (
+    id_endereco int not null AUTO_INCREMENT primary key,
+    cidade varchar(45) not null,
+    bairro varchar(45) not null,
+    estado varchar(45) not null,
+    rua varchar(45) not null,
+    numero_casa int not null,
+    id_cliente int null,
+    id_fornecedor int null,
+    foreign key(id_cliente) references Cliente(id_cliente),
+    foreign key(id_fornecedor) references Fornecedor(id_fornecedor)
+);
 
-create table 'Carrinho' (
-    'Id_Carrinho' int not null AUTO_INCREMENT primary key,
-    'Id_Cliente' int not null,
-    foreign key(Id_Cliente) references Cliente(Id_Cliente)
+create table Carrinho (
+    id_carrinho int not null AUTO_INCREMENT primary key,
+    id_cliente int not null,
+    foreign key(id_cliente) references Cliente(id_cliente)
+);
+
+create table Venda (
+    id_venda int not null AUTO_INCREMENT primary key,
+    data_compra varchar(45) not null,
+    id_carrinho int not null,
+    foreign key(id_carrinho) references Carrinho(id_carrinho)
+);
+
+create table Carrinho_has_Produto (
+    id_carrinho_has_produto int not null primary key,
+    id_carrinho int not null,
+    id_produto int not null,
+    quantidade int not null,
+    valor_total varchar(45) not null,
+    foreign key(id_carrinho) references Carrinho(id_carrinho),
+    foreign key(id_produto) references Produto(id_produto)
+);
+
+create table Imagem_Produto (
+    id_imagem_produto int not null AUTO_INCREMENT primary key,
+    caminho varchar(500) not null,
+    id_produto int not null,
+    foreign key(id_produto) references Produto(id_produto)
+);
+
+create table Estoque (
+    id_estoque int not null AUTO_INCREMENT primary key,
+    quantidade int not null,
+    id_fornecedor int not null,
+    id_produto int not null,
+    foreign key(id_fornecedor) references Fornecedor(id_fornecedor),
+    foreign key(id_produto) references Produto(id_produto)
+);
+
+create table Categoria (
+    id_categoria int not null AUTO_INCREMENT primary key,
+    nome varchar(45) not null,
+    descricao varchar(45) not null
+);
+
+create table Categoria_Produto (
+    id_categoria_produto int not null AUTO_INCREMENT primary key,
+    id_produto int not null,
+    id_categoria int not null,
+    foreign key(id_produto) references Produto(id_produto),
+    foreign key(id_categoria) references Categoria(id_categoria)
 )
