@@ -72,8 +72,52 @@ def signup():
         cursor.close()
         db.commit()
         return redirect("/")
+    
+@app.route("/signupJuridical", methods=['POST'])
+def signupJuridical():
+    razao_social = request.form['social-reason']
+    cnpj = request.form['cnpj']
+    email_juridico = request.form['email']
+    telefone_juridico = request.form['telephone']
+    inscricao_estadual = request.form['state-registration']
+    senha_juridico = request.form['password']
+    
+    #dando hashing na senha, hashing de 16 caracteres
+    hashed_password = hashing.hash_value(senha_juridico)
+    hashed_password = hashed_password[:16]
+    
+    #checando se o cpf já está cadastrado
+    cursor = db.cursor(dictionary=True)
+    cursor.execute(f"SELECT * FROM Fornecedor WHERE cnpj='{cnpj}'")
+    check_juridico_existe = cursor.fetchall()
+    
+    if check_juridico_existe:
+        raise Exception("Esse cnpj já está cadastrado")
+    else:
+        # dando post no banco com as informações do fornecedor
+        post_fornecedor = "INSERT INTO Fornecedor (razao_social, email, cnpj, senha, inscricao_estadual) VALUES (%s, %s, %s, %s, %s)"
         
-            
+        tupla_fornecedor_infos = (razao_social, email_juridico, cnpj, hashed_password, inscricao_estadual)
+        
+        cursor.execute(post_fornecedor, tupla_fornecedor_infos)
+        cursor.close()
+        db.commit()
+        
+        # criando outro cursor para pegar o id_dornecedor que acabou de ser adicionado para adicionar o telefone do mesmo
+        cursor = db.cursor(dictionary=True)
+        select_id_fornedor = (f"SELECT id_fornecedor FROM Fornecedor WHERE cnpj='{cnpj}'")
+        cursor.execute(select_id_fornedor)
+        fetch_cnpj = cursor.fetchall()
+        fetch_cnpj[0]['id_fornecedor']
+        
+        post_fornecedor_telefone = "INSERT INTO Telefone (id_fornecedor, telefone) VALUES (%s, %s)"
+        
+        tupla_fornecedor_telefone = (fetch_cnpj[0]['id_fornecedor'], telefone_juridico)
+        cursor.execute(post_fornecedor_telefone, tupla_fornecedor_telefone)
+        cursor.close()
+        db.commit()
+        return redirect("/")
+
 @app.route("/product/<produto>")
 def produto(produto):
     return render_template('productPage.html')
@@ -81,7 +125,6 @@ def produto(produto):
 @app.route("/user/usuario")
 def usuario(usuario):
     return render_template('productPage.html')
-
 
 @app.route("/admin")
 def admin():
@@ -96,6 +139,9 @@ def enviar():
     
     ### Descobrir a extensao ###
     extensao = a.filename.rsplit('.',1)[1]
+    '''
+    foto.png.jpg > "foto.png.jpg".rsplit('.',1) > ['foto.png', 'jpg'][1] > jpg
+    '''
 
     caminho = f'PyTech/static/img/produtos/{nomeProduto}.{extensao}'
     a.save(caminho)
@@ -104,7 +150,7 @@ def enviar():
     
     cursor = db.cursor(dictionary=True)
 
-    sql = ("INSERT INTO produto "
+    sql = ("INSERT INTO Produto "
            "(nome_produto, preco) "
            "VALUES (%s, %s)")
 
@@ -118,16 +164,16 @@ def enviar():
     cursor.execute(select)
     fetchdata = cursor.fetchall()
     
-    sql = ("INSERT INTO Estoque (quantidade, id_fornecedor, id_produto) VALUES (%s, %s, %s)")
+    sql = ("INSERT INTO estoque (quantidade, id_fornecedor, id_produto) VALUES (%s, %s, %s)")
     
-    tupla = (int(quant), 1, fetchdata[0]['idproduto'])
+    tupla = (int(quant), 1, fetchdata[0]['id_produto'])
     cursor.execute(sql, tupla)
     
-    sql2 = ("INSERT INTO Imagem_Produto "
-        "(Caminho, id_produto) "
+    sql2 = ("INSERT INTO imagem_produto "
+        "(caminho, id_produto) "
         "VALUES (%s, %s)")
 
-    tupla2 = (caminhoBD, fetchdata[0]['idproduto'])
+    tupla2 = (caminhoBD, fetchdata[0]['id_produto'])
     
     cursor.execute(sql2, tupla2)
     cursor.close()
