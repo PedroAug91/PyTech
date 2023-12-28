@@ -16,7 +16,7 @@ create table Fornecedor (
     cnpj varchar(45) not null,
     senha varchar(45) not null,
     inscricao_estadual varchar(45) not null,
-    descricao varchar(500) not null,
+    descricao varchar(500) not null default '',
     constraint email_unico unique (email),
     constraint cnpj_unico unique (cnpj)
 );
