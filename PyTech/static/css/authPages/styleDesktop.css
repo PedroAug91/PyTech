@@ -159,6 +159,11 @@
     color: var(--clr-accent-white);
 }
 
+.inputs div p span {
+    font-size: 1.5rem;
+    color: var(--clr-secondary);
+}
+
 .inputs button, .inputs-signin button{
     width: 200px;
     height: 50px;

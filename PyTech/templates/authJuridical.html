@@ -15,15 +15,15 @@
                     <h3>(*) campos obrigatórios</h3>
                 </div>
                 <div id="formsSignin" class="forms-signin">
-                    <form id="form-signin" action="signin" method="get" enctype="multipart/form-data">
+                    <form id="form-signin" action="login" method="post">
                         <div class="inputs-signin">
                             <div>
-                                <p>Nome, CNPJ ou CPF*</p>
-                                <input type="text" name="name-cnpj-cpf" required>
+                                <p>Email, CNPJ ou CPF *</p>
+                                <input type="text" name="info" required>
                             </div>
                             <div>
                                 <p>Senha *</p>
-                                <input class="password" maxlength="16" class="password" maxlength="16" type="password" name="password" required>
+                                <input maxlength="16" class="password" type="password" name="password" pattern=".{8,}" required>
                             </div>
                             <button id="createAccount" onclick="toSignup()">Criar uma conta</button>
                             <button type="submit" id="btn-registrar" value="registrar">Cadastrar</button>
@@ -54,8 +54,8 @@
                                 <input type="text" name="social-reason" required>
                             </div>
                             <div>
-                                <p>CNPJ *</p>
-                                <input type="text" name="cnpj" required>
+                                <p>CNPJ * <span>(Ex: XX.XXX.XXX/XXXX-XX)</span></p>
+                                <input type="text" name="cnpj" pattern="(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" required>
                             </div>
 
                             <div>
@@ -63,12 +63,12 @@
                                 <input type="email" name="email" required>
                             </div>
                             <div>
-                                <p>Telefone *</p>
-                                <input type="text" name="telephone" required>
+                                <p>Telefone * <span>(Ex: (XX)XXXXXXXXX)</span></p>
+                                <input type="text" name="telephone" maxlength="13" required>
                             </div>
                             <div>
-                                <p>Senha *</p>
-                                <input class="password" maxlength="16" class="password" maxlength="16" type="password" name="password" required>
+                                <p>Senha * <span>Mínimo de 8 caracteres</span></p>
+                                <input class="password" class="password" maxlength="16" type="password" name="password" pattern=".{8,}" required>
                             </div>
                             <div>
                                 <p>Inscrição Estadual *</p>

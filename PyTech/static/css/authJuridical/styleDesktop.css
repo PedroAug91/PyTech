@@ -21,7 +21,7 @@
     
 }
 
-/* container que guarda a imagem da personagem */
+/* container que guarda a imagem do personagem */
 #backgroundImage , #backgroundImageRight{
     height: 100%;
     width: 45%;
@@ -33,7 +33,7 @@
     max-height: 100%;
     max-width: 100%;
     margin-top: -24px;
-    margin-left: -80px;
+    margin-left: -100px;
 }
 
 #signinImg {
@@ -157,6 +157,11 @@
 .inputs div p, .inputs-signin div p {
     font-size: 2rem;
     color: var(--clr-accent-white);
+}
+
+.inputs div p span {
+    font-size: 1.5rem;
+    color: var(--clr-secondary);
 }
 
 .inputs button, .inputs-signin button{

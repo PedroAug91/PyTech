@@ -8,6 +8,7 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
+    password='010705',
     database='pytech'
 )
 
@@ -26,6 +27,7 @@ def homepage():
 
     return render_template("homepage.html", title="Página Principal", produtos=produtos, imagens=imagens_produtos)
 
+### CADASTRO DE UMA PESSOA FÍSICA/CLIENTE ###
 @app.route("/signup", methods=['POST'])
 def signup():
     nome_fisica = request.form['name']
@@ -70,7 +72,8 @@ def signup():
         cursor.close()
         db.commit()
         return redirect("/")
-    
+
+### CADASTRO DE UM FORNECEDOR ###
 @app.route("/signupJuridical", methods=['POST'])
 def signupJuridical():
     razao_social = request.form['social-reason']
@@ -116,6 +119,34 @@ def signupJuridical():
         db.commit()
         return redirect("/")
 
+### LOGIN DE UM USUÁRIO ###
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    cpf_cnpj_email = request.form.get("info")
+    senha = request.form.get("password")
+
+    hashed_password = hashing.hash_value(senha)
+    hashed_password = hashed_password[:16]
+    
+    cursor = db.cursor(dictionary=True)
+    cursor.execute(f"SELECT * FROM Cliente WHERE email='{cpf_cnpj_email}'")
+    select_email_cliente = cursor.fetchall()
+    cursor.execute(f"SELECT * FROM Fornecedor WHERE email='{cpf_cnpj_email}'")
+    select_email_fornecedor = cursor.fetchall()
+    cursor.execute(f"SELECT * FROM Cliente WHERE cpf='{cpf_cnpj_email}'")
+    select_cpf_cliente = cursor.fetchall()
+    cursor.execute(f"SELECT * FROM Fornecedor WHERE cnpj='{cpf_cnpj_email}'")
+    select_cnpj_fornecedor = cursor.fetchall()
+    
+    for dados in (select_email_fornecedor, select_email_cliente, select_cpf_cliente, select_cnpj_fornecedor):
+        if(dados):
+            if(hashed_password == dados[0]["senha"]):
+                return redirect(f'/User/{dados[0]["email"]}')
+        else:
+            continue
+        
+    raise Exception("Ei boy, esse usuario nem existe")
+    
 @app.route("/product/<produto>")
 def produto(produto):
     return render_template('productPage.html')
@@ -128,6 +159,7 @@ def usuario(usuario):
 def admin():
     return render_template('admin.html')
 
+### CADASTRO DE UM PRODUTO NO BANCO ###
 @app.route('/cadastrarProduto', methods=['POST'])
 def enviar():
     nomeProduto = request.form['nome-produto']
