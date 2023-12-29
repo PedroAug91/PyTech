@@ -34,7 +34,7 @@ body {
     background-color: var(--clr-primary);
 }
 
-
+ /* ESTILO DO HEADER BASE PARA TODAS AS PÁGINAS */
 
 header {
     display: flex;
@@ -270,6 +270,8 @@ header #iconsHeader {
 #lowerHeader .navbar {
     border-left: 0.5px solid var(--clr-accent-white);
 }
+
+ /* ESTILO DO FOOTER BASE PARA TODAS AS PÁGINAS */
 
 footer {
     background-color: var(--clr-secondary);
