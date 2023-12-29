@@ -19,14 +19,13 @@ def homepage():
     cursor = db.cursor(dictionary=True)
     select = "SELECT * FROM Produto"
     cursor.execute(select)
-    fetchdata = cursor.fetchall()
+    produtos = cursor.fetchall()
     
     select = "SELECT * FROM Imagem_Produto"
     cursor.execute(select)
-    fetchdata2 = cursor.fetchall()
-    print(fetchdata2)
-    
-    return render_template("homepage.html", title="Página Principal", produtos=fetchdata, imagens=fetchdata2)
+    imagens_produtos = cursor.fetchall()
+
+    return render_template("homepage.html", title="Página Principal", produtos=produtos, imagens=imagens_produtos)
 
 @app.route("/signup", methods=['POST'])
 def signup():
@@ -122,11 +121,11 @@ def signupJuridical():
 def produto(produto):
     return render_template('productPage.html')
 
-@app.route("/user/usuario")
+@app.route("/User/<usuario>")
 def usuario(usuario):
     return render_template('productPage.html')
 
-@app.route("/admin")
+@app.route("/Admin")
 def admin():
     return render_template('admin.html')
 

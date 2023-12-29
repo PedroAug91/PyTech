@@ -1,0 +1,14 @@
+.hero {
+    margin-inline: 0;
+    max-width: 100%;
+    margin-bottom: 80px;
+}
+
+.cards-container {
+    display: grid;
+    max-width: 1420px;
+    min-height: 328px;
+    gap: 43px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+}
