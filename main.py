@@ -8,7 +8,7 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='010705',
+    password='labinfo',
     database='pytech'
 )
 
@@ -211,5 +211,17 @@ def enviar():
 
     return render_template('teste.html')
 
+@app.route('/ShoppingCart')
+def carrinhoCompras():
+    cursor = db.cursor(dictionary=True)
+    
+    #seleionando carrinho do cliente 
+    cursor.execute(f'SELECT id_carrinho FROM Carrinho WHERE id_cliente={1}')
+    carrinho_cliente = cursor.fetchall()
+    print(carrinho_cliente)
+    #selecionando carrinho com  produtos do cliente
+    # cursor.execute(f'SELECT * FROM Carrinho_has_Produto WHERE id_carrinho={carrinho_cliente}')
+    return render_template("shoppingCart.html", title="Carrinho de compras")
+    
 if __name__ == '__main__':
     app.run(debug=True)
