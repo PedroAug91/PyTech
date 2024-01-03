@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block static %}
+    <link rel="stylesheet" href="../static/css/productPage/styleDesktop.css">
+    <link rel="stylesheet" href="../static/css/productPage/styleMobile.css">
+{% endblock static %}
+{% block content %}
+<section class="product-checkout-section">
+    <div class="product-images">
+        <img src="{{ imagem.caminho }}" alt="">
+        <div class="flex-col">
+            <h1 class="product-name">{{ produto.nome_produto }}</h1>
+            <h2 class="product-price">R$ {{ produto.preco }}</h2>
+            <div class="buttons-container">
+                <button class="" >Comprar</button>
+                <button class="add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="product-description-section">
+    <i class="fa-regular fa-file-lines"></i>
+    <h1>Descrição</h1>
+    <div class="text-container">
+        <p>{{ produto.descricao }}</p>
+        <p class="orange">Compre agora na PyTech!</p>
+    </div>
+</section>
+{% endblock content %}

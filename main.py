@@ -8,7 +8,7 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='010705',
+    password='labinfo',
     database='pytech'
 )
 
@@ -147,9 +147,19 @@ def login():
         
     raise Exception("Ei boy, esse usuario nem existe")
     
-@app.route("/product/<produto>")
+@app.route("/Product/<produto>")
 def produto(produto):
-    return render_template('productPage.html')
+    cursor = db.cursor(dictionary=True)
+    select = f"SELECT * FROM produto where nome_produto = '{produto}'"
+    cursor.execute(select)
+    dados_produto = cursor.fetchone()
+
+    select = f"SELECT * FROM imagem_produto where id_produto = '{dados_produto['id_produto']}'"
+    cursor.execute(select)
+    imagem_produto = cursor.fetchone()
+
+    print(imagem_produto)
+    return render_template('productPage.html', produto=dados_produto, imagem=imagem_produto, title=dados_produto['nome_produto'])
 
 @app.route("/User/<usuario>")
 def usuario(usuario):

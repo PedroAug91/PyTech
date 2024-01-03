@@ -433,7 +433,7 @@ footer {
 }
 
 .orange {
-    color: var(--clr-secondary);
+    color: var(--clr-secondary) !important;
 }
 
 @media screen and (max-width: 1180px)  {
