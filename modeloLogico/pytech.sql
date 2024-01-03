@@ -5,8 +5,10 @@ create table Produto (
     id_produto int not null AUTO_INCREMENT primary key,
     nome_produto varchar(500) not null,
     preco varchar(45) not null,
+    id_fornecedor int not null,
     descricao varchar(1000) not null default '',
-    constraint nome_unico unique (nome_produto)
+    constraint nome_unico unique (nome_produto),
+    foreign key(id_fornecedor) references Fornecedor(id_fornecedor)
 );
 
 create table Fornecedor (
@@ -63,8 +65,8 @@ create table Carrinho (
 create table Venda (
     id_venda int not null AUTO_INCREMENT primary key,
     data_compra varchar(45) not null,
-    id_carrinho int not null,
-    foreign key(id_carrinho) references Carrinho(id_carrinho)
+    id_carrinho_has_produto int not null,
+    foreign key(id_carrinho_has_produto) references Carrinho_has_Produto(id_carrinho_has_produto)
 );
 
 create table Carrinho_has_Produto (
