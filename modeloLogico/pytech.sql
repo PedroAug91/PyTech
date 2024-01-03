@@ -1,16 +1,6 @@
 CREATE DATABASE if not exists PyTech DEFAULT CHARACTER SET utf8;
 USE PyTech;
 
-create table Produto (
-    id_produto int not null AUTO_INCREMENT primary key,
-    nome_produto varchar(500) not null,
-    preco varchar(45) not null,
-    id_fornecedor int not null,
-    descricao varchar(1000) not null default '',
-    constraint nome_unico unique (nome_produto),
-    foreign key(id_fornecedor) references Fornecedor(id_fornecedor)
-);
-
 create table Fornecedor (
     id_fornecedor int not null AUTO_INCREMENT primary key,
     razao_social varchar(45) not null,
@@ -21,6 +11,16 @@ create table Fornecedor (
     descricao varchar(500) not null default '',
     constraint email_unico unique (email),
     constraint cnpj_unico unique (cnpj)
+);
+
+create table Produto (
+    id_produto int not null AUTO_INCREMENT primary key,
+    nome_produto varchar(500) not null,
+    preco varchar(45) not null,
+    id_fornecedor int not null,
+    descricao varchar(1000) not null default '',
+    constraint nome_unico unique (nome_produto),
+    foreign key(id_fornecedor) references Fornecedor(id_fornecedor)
 );
 
 create table Cliente (
@@ -62,13 +62,6 @@ create table Carrinho (
     foreign key(id_cliente) references Cliente(id_cliente)
 );
 
-create table Venda (
-    id_venda int not null AUTO_INCREMENT primary key,
-    data_compra varchar(45) not null,
-    id_carrinho_has_produto int not null,
-    foreign key(id_carrinho_has_produto) references Carrinho_has_Produto(id_carrinho_has_produto)
-);
-
 create table Carrinho_has_Produto (
     id_carrinho_has_produto int not null primary key,
     id_carrinho int not null,
@@ -77,6 +70,13 @@ create table Carrinho_has_Produto (
     valor_total varchar(45) not null,
     foreign key(id_carrinho) references Carrinho(id_carrinho),
     foreign key(id_produto) references Produto(id_produto)
+);
+
+create table Venda (
+    id_venda int not null AUTO_INCREMENT primary key,
+    data_compra varchar(45) not null,
+    id_carrinho_has_produto int not null,
+    foreign key(id_carrinho_has_produto) references Carrinho_has_Produto(id_carrinho_has_produto)
 );
 
 create table Imagem_Produto (
