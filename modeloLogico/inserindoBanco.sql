@@ -15,6 +15,12 @@ INSERT INTO Produto (nome_produto, preco, id_fornecedor, descricao) VALUES ('Pro
 INSERT INTO Produto (nome_produto, preco, id_fornecedor, descricao) VALUES ('Produto 2', '200', 2, 'Descrição do Produto 2');
 INSERT INTO Produto (nome_produto, preco, id_fornecedor, descricao) VALUES ('Produto 3', '300', 3, 'Descrição do Produto 3');
 
+-- Inserindo linhas na tabela Estoque
+
+INSERT INTO Estoque (quantidade, id_fornecedor, id_produto) VALUES ('900', 1, 1);
+INSERT INTO Estoque (quantidade, id_fornecedor, id_produto) VALUES ('400', 2, 2);
+INSERT INTO Estoque (quantidade, id_fornecedor, id_produto) VALUES ('40', 3, 3);
+
 -- Inserindo carrinhos na tabela Carrinho
 INSERT INTO Carrinho (id_cliente) VALUES (1);
 INSERT INTO Carrinho (id_cliente) VALUES (2);
