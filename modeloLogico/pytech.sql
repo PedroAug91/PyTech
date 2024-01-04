@@ -63,7 +63,7 @@ create table Carrinho (
 );
 
 create table Carrinho_has_Produto (
-    id_carrinho_has_produto int not null primary key,
+    id_carrinho_has_produto int not null AUTO_INCREMENT primary key,
     id_carrinho int not null,
     id_produto int not null,
     quantidade int not null,

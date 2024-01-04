@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `pytech` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `pytech`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pytech
@@ -18,29 +16,32 @@ USE `pytech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `venda`
+-- Table structure for table `estoque`
 --
 
-DROP TABLE IF EXISTS `venda`;
+DROP TABLE IF EXISTS `estoque`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `venda` (
-  `id_venda` int NOT NULL AUTO_INCREMENT,
-  `data_compra` varchar(45) NOT NULL,
-  `id_carrinho` int NOT NULL,
-  PRIMARY KEY (`id_venda`),
-  KEY `id_carrinho` (`id_carrinho`),
-  CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`id_carrinho`) REFERENCES `carrinho` (`id_carrinho`)
+CREATE TABLE `estoque` (
+  `id_estoque` int NOT NULL AUTO_INCREMENT,
+  `quantidade` int NOT NULL,
+  `id_fornecedor` int NOT NULL,
+  `id_produto` int NOT NULL,
+  PRIMARY KEY (`id_estoque`),
+  KEY `id_fornecedor` (`id_fornecedor`),
+  KEY `id_produto` (`id_produto`),
+  CONSTRAINT `estoque_ibfk_1` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`),
+  CONSTRAINT `estoque_ibfk_2` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `venda`
+-- Dumping data for table `estoque`
 --
 
-LOCK TABLES `venda` WRITE;
-/*!40000 ALTER TABLE `venda` DISABLE KEYS */;
-/*!40000 ALTER TABLE `venda` ENABLE KEYS */;
+LOCK TABLES `estoque` WRITE;
+/*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
+/*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-29 11:54:11
+-- Dump completed on 2024-01-04 10:45:50

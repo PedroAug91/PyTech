@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `pytech` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `pytech`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pytech
@@ -18,29 +16,33 @@ USE `pytech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `produto`
+-- Table structure for table `carrinho_has_produto`
 --
 
-DROP TABLE IF EXISTS `produto`;
+DROP TABLE IF EXISTS `carrinho_has_produto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `produto` (
-  `id_produto` int NOT NULL AUTO_INCREMENT,
-  `nome_produto` varchar(500) NOT NULL,
-  `preco` varchar(45) NOT NULL,
-  `descricao` varchar(1000) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id_produto`),
-  UNIQUE KEY `nome_unico` (`nome_produto`)
+CREATE TABLE `carrinho_has_produto` (
+  `id_carrinho_has_produto` int NOT NULL,
+  `id_carrinho` int NOT NULL,
+  `id_produto` int NOT NULL,
+  `quantidade` int NOT NULL,
+  `valor_total` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_carrinho_has_produto`),
+  KEY `id_carrinho` (`id_carrinho`),
+  KEY `id_produto` (`id_produto`),
+  CONSTRAINT `carrinho_has_produto_ibfk_1` FOREIGN KEY (`id_carrinho`) REFERENCES `carrinho` (`id_carrinho`),
+  CONSTRAINT `carrinho_has_produto_ibfk_2` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `produto`
+-- Dumping data for table `carrinho_has_produto`
 --
 
-LOCK TABLES `produto` WRITE;
-/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+LOCK TABLES `carrinho_has_produto` WRITE;
+/*!40000 ALTER TABLE `carrinho_has_produto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carrinho_has_produto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-29 11:54:10
+-- Dump completed on 2024-01-04 10:45:51

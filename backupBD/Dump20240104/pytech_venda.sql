@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `pytech` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `pytech`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pytech
@@ -18,12 +16,30 @@ USE `pytech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping events for database 'pytech'
+-- Table structure for table `venda`
 --
 
+DROP TABLE IF EXISTS `venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `venda` (
+  `id_venda` int NOT NULL AUTO_INCREMENT,
+  `data_compra` varchar(45) NOT NULL,
+  `id_carrinho_has_produto` int NOT NULL,
+  PRIMARY KEY (`id_venda`),
+  KEY `id_carrinho_has_produto` (`id_carrinho_has_produto`),
+  CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`id_carrinho_has_produto`) REFERENCES `carrinho_has_produto` (`id_carrinho_has_produto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'pytech'
+-- Dumping data for table `venda`
 --
+
+LOCK TABLES `venda` WRITE;
+/*!40000 ALTER TABLE `venda` DISABLE KEYS */;
+/*!40000 ALTER TABLE `venda` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -34,4 +50,4 @@ USE `pytech`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-29 11:54:11
+-- Dump completed on 2024-01-04 10:45:50

@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `pytech` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `pytech`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pytech
@@ -18,36 +16,33 @@ USE `pytech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `endereco`
+-- Table structure for table `fornecedor`
 --
 
-DROP TABLE IF EXISTS `endereco`;
+DROP TABLE IF EXISTS `fornecedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `endereco` (
-  `id_endereco` int NOT NULL AUTO_INCREMENT,
-  `cidade` varchar(45) NOT NULL,
-  `bairro` varchar(45) NOT NULL,
-  `estado` varchar(45) NOT NULL,
-  `rua` varchar(45) NOT NULL,
-  `numero_casa` int NOT NULL,
-  `id_cliente` int DEFAULT NULL,
-  `id_fornecedor` int DEFAULT NULL,
-  PRIMARY KEY (`id_endereco`),
-  KEY `id_cliente` (`id_cliente`),
-  KEY `id_fornecedor` (`id_fornecedor`),
-  CONSTRAINT `endereco_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
-  CONSTRAINT `endereco_ibfk_2` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`)
+CREATE TABLE `fornecedor` (
+  `id_fornecedor` int NOT NULL AUTO_INCREMENT,
+  `razao_social` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `cnpj` varchar(45) NOT NULL,
+  `senha` varchar(45) NOT NULL,
+  `inscricao_estadual` varchar(45) NOT NULL,
+  `descricao` varchar(500) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_fornecedor`),
+  UNIQUE KEY `email_unico` (`email`),
+  UNIQUE KEY `cnpj_unico` (`cnpj`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `endereco`
+-- Dumping data for table `fornecedor`
 --
 
-LOCK TABLES `endereco` WRITE;
-/*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
-/*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
+LOCK TABLES `fornecedor` WRITE;
+/*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -59,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-29 11:54:10
+-- Dump completed on 2024-01-04 10:45:51
