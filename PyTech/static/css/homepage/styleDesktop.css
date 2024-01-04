@@ -1,15 +1,39 @@
 .hero {
     margin-inline: 0;
     max-width: 100%;
+    min-height: 400px;
     margin-bottom: 80px;
     margin-top: -8rem;
+    background-image: url("../../img/heroPyTech.png");
+    object-fit: contain;
 }
 
 .cards-container {
     display: grid;
     max-width: 1420px;
+    grid-template-rows: auto;
+}
+
+.recents-container {
+    grid-template-columns: repeat(5, 1fr);
     min-height: 328px;
     gap: 43px;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: auto;
+}
+
+.most-sold-container {
+    grid-template-columns: repeat(2, 1fr);
+    min-height: 333px;
+}
+
+.ms-card {
+    background-color: #3e3e3e;
+    width: 680px;
+    height: 333px;
+}
+
+.ms-card img {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    object-fit: contain;
 }
