@@ -20,7 +20,17 @@ INSERT INTO Carrinho (id_cliente) VALUES (1);
 INSERT INTO Carrinho (id_cliente) VALUES (2);
 INSERT INTO Carrinho (id_cliente) VALUES (3);
 
+
 -- Inserindo produtos no carrinho na tabela Carrinho_has_Produto
 INSERT INTO Carrinho_has_Produto (id_carrinho, id_produto, quantidade, valor_total) VALUES (1, 1, 2, '200');
+INSERT INTO Carrinho_has_Produto (id_carrinho, id_produto, quantidade, valor_total) VALUES (1, 2, 2, '400');
+INSERT INTO Carrinho_has_Produto (id_carrinho, id_produto, quantidade, valor_total) VALUES (1, 3, 3, '900');
+
 INSERT INTO Carrinho_has_Produto (id_carrinho, id_produto, quantidade, valor_total) VALUES (2, 2, 3, '600');
 INSERT INTO Carrinho_has_Produto (id_carrinho, id_produto, quantidade, valor_total) VALUES (3, 3, 1, '300');
+
+
+-- Inserindo imagens na tabela Imagem_Produto
+INSERT INTO Imagem_Produto (caminho, id_produto) VALUES ('../static/img/produtos/Produto 1.jpg', 1);
+INSERT INTO Imagem_Produto (caminho, id_produto) VALUES ('../static/img/produtos/Produto 2.jpg', 2);
+INSERT INTO Imagem_Produto (caminho, id_produto) VALUES ('../static/img/produtos/Produto 3.jpg', 3);
