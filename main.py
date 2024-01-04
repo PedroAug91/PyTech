@@ -158,8 +158,11 @@ def produto(produto):
     cursor.execute(select)
     imagem_produto = cursor.fetchone()
 
-    print(imagem_produto)
-    return render_template('productPage.html', produto=dados_produto, imagem=imagem_produto, title=dados_produto['nome_produto'])
+    select = f"SELECT e.quantidade, f.razao_social FROM estoque e INNER JOIN fornecedor f ON e.id_fornecedor = f.id_fornecedor INNER JOIN produto p ON e.id_produto = p.id_produto WHERE p.id_produto = '{dados_produto['id_produto']}'"
+    cursor.execute(select)
+    quantidade_fornecedor = cursor.fetchone()
+
+    return render_template('productPage.html', produto=dados_produto, imagem=imagem_produto, quantidade_fornecedor=quantidade_fornecedor, title=dados_produto['nome_produto'])
 
 @app.route("/User/<usuario>")
 def usuario(usuario):

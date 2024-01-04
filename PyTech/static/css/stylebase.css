@@ -45,6 +45,7 @@ header {
     box-shadow: 5px 4px 4px 0px rgba(0, 0, 0, 0.25);
     position: relative;
     z-index: 9999;
+    margin-bottom: 8rem;
 }
 
 header #logoName {
@@ -428,8 +429,8 @@ footer {
 .section-title {
     color: var(--clr-accent-white);
     font-family: var(--font-primary);
-    font-size: 3rem;
-    font-weight: 900;
+    font-size: 3rem !important;
+    font-weight: 900 !important;
 }
 
 .orange {
