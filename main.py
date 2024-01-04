@@ -8,7 +8,6 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='labinfo',
     database='pytech'
 )
 
@@ -218,10 +217,23 @@ def carrinhoCompras():
     #seleionando carrinho do cliente 
     cursor.execute(f'SELECT id_carrinho FROM Carrinho WHERE id_cliente={1}')
     carrinho_cliente = cursor.fetchall()
-    print(carrinho_cliente)
+    
     #selecionando carrinho com  produtos do cliente
-    # cursor.execute(f'SELECT * FROM Carrinho_has_Produto WHERE id_carrinho={carrinho_cliente}')
-    return render_template("shoppingCart.html", title="Carrinho de compras")
+    cursor.execute(f'SELECT * FROM Carrinho_has_Produto WHERE id_carrinho={carrinho_cliente[0]["id_carrinho"]}')
+    carrinho_comProduto_cliente = cursor.fetchall()
+
+    #lista que guarda todos os produtos que estão no carrinho
+    lista_produtos = []
+    imagens_produtos = []
+    
+    #pegando todos os produtos que estão dentro do carrinho do cliente
+    for produto in carrinho_comProduto_cliente:
+        cursor.execute(f'SELECT * FROM Produto WHERE id_produto={produto["id_produto"]}')
+        produtos_dentro_carrinho = cursor.fetchall()
+        lista_produtos.append(produtos_dentro_carrinho)
+        cursor.execute(f'SELECT * FROM ')
+    
+    return render_template("shoppingCart.html", title="Carrinho de compras", produtos = lista_produtos, quantidade_valorTot=carrinho_comProduto_cliente)
     
 if __name__ == '__main__':
     app.run(debug=True)
