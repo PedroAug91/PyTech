@@ -17,17 +17,19 @@
                 {% for produto in produtos %}
                     {% for imagem in imagens%}
                         {% if produto['id_produto'] == imagem['id_produto'] %}
-                        <div class="card">
-                            {% if imagem.caminho != "" %}
-                                <div class="img-container"><img class="card-image" src="{{ imagem.caminho }}" alt=""></div>
-                            {% else %}
-                                <div class="img-container"><img class="card-image" src="../static/img/404.png" alt=""></div>
-                            {% endif %}
-                                <hr class="card-line">
-                                <h1 class="product-name" >{{ produto.nome_produto }}</h1>
-                                <h2 class="product-price">R${{ produto.preco }}</h2>
-                                <p class="product-description">{{ produto.descricao }}</p>
-                        </div>
+                        <a href="/Product/{{ produto['nome_produto'] }}">
+                            <div class="card">
+                                {% if imagem.caminho != "" %}
+                                    <div class="img-container"><img class="card-image" src="{{ imagem.caminho }}" alt=""></div>
+                                {% else %}
+                                    <div class="img-container"><img class="card-image" src="../static/img/404.png" alt=""></div>
+                                {% endif %}
+                                    <hr class="card-line">
+                                    <h1 class="product-name" >{{ produto.nome_produto }}</h1>
+                                    <h2 class="product-price">R${{ produto.preco }}</h2>
+                                    <p class="product-description">{{ produto.descricao }}</p>
+                            </div>
+                        </a>
                         {% endif %}
                     {% endfor %}
                 {% endfor %}

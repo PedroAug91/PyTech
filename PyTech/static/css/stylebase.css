@@ -20,6 +20,13 @@
     --font-primary: 'Roboto Slab'
 }
 
+
+a:link, a:visited {
+    text-decoration: none;
+    color: transparent;
+    cursor: pointer;
+}
+
 html {
     font-size: 10px;
     font-family: var(--font-primary);
