@@ -157,7 +157,6 @@ def login():
         
     raise Exception("Ei boy, esse usuario nem existe")
     
-    
 @app.route("/Product/<produto>")
 def produto(produto):
     cursor = db.cursor(dictionary=True)
