@@ -1,4 +1,5 @@
 from PyTech import create_app
+from PyTech.models import Cliente, Fornecedor
 from flask import redirect, request, render_template, url_for, Flask
 import mysql.connector
 from flask_hashing import Hashing
@@ -11,6 +12,9 @@ db = mysql.connector.connect(
     password='labinfo',
     database='pytech'
 )
+
+cliente = Cliente(None, None, None, None, None)
+fornecedor = Fornecedor(None, None, None, None, None)
 
 hashing = Hashing(app)
 
@@ -25,7 +29,7 @@ def homepage():
     cursor.execute(select)
     imagens_produtos = cursor.fetchall()
 
-    return render_template("homepage.html", title="Página Principal", produtos=produtos, imagens=imagens_produtos)
+    return render_template("homepage.html", title="Página Principal", produtos=produtos, imagens=imagens_produtos, cliente=cliente.nome, fornecedor=fornecedor.razao_social)
 
 ### CADASTRO DE UMA PESSOA FÍSICA/CLIENTE ###
 @app.route("/signup", methods=['POST'])
@@ -140,8 +144,14 @@ def login():
     
     for dados in (select_email_fornecedor, select_email_cliente, select_cpf_cliente, select_cnpj_fornecedor):
         if(dados):
-            if(hashed_password == dados[0]["senha"]):
-                return redirect(f'/User/{dados[0]["email"]}')
+            if(hashed_password == dados[0]["senha"] and 'cpf' in dados[0]):
+                cliente.set_info(dados[0]['nome'], dados[0]['sobrenome'], dados[0]['cpf'], dados[0]['email'], dados[0]['senha'])
+                print(cliente.nome)
+                return redirect(f'/Client/{dados[0]["email"]}')
+            elif(hashed_password == dados[0]["senha"] and 'cnpj' in dados[0]):
+                fornecedor.set_info(dados[0]['razao_social'], dados[0]['cnpj'], dados[0]['email'], dados[0]['senha'], dados[0]['inscricao_estadual'])
+                print(fornecedor.razao_social)
+                return redirect(f'/Supplier/{dados[0]["email"]}')
         else:
             continue
         
@@ -164,13 +174,21 @@ def produto(produto):
 
     return render_template('productPage.html', produto=dados_produto, imagem=imagem_produto, quantidade_fornecedor=quantidade_fornecedor, title=dados_produto['nome_produto'])
 
-@app.route("/User/<usuario>")
-def usuario(usuario):
-    return render_template('productPage.html')
+@app.route("/Client/<usuario>")
+def client(usuario):
+    return render_template('profileClient.html', cliente=cliente.nome)
+
+@app.route("/Supplier/<usuario>")
+def supplier(usuario):
+    return render_template('profileSupplier.html', fornecedor=fornecedor.razao_social)
 
 @app.route("/Admin")
 def admin():
     return render_template('admin.html')
+
+@app.route('/SendProducts')
+def enviandoProdutos():
+    return render_template('cadastrarProdutos.html')
 
 ### CADASTRO DE UM PRODUTO NO BANCO ###
 @app.route('/cadastrarProduto', methods=['POST'])
@@ -178,26 +196,26 @@ def enviar():
     nomeProduto = request.form['nome-produto']
     preco = request.form['preco']
     quant = request.form['quantidade']
-    a = request.files['arq']
+    imagem = request.files['imagem']
     
     ### Descobrir a extensao ###
-    extensao = a.filename.rsplit('.',1)[1]
+    extensao = imagem.filename.rsplit('.',1)[1]
     '''
     foto.png.jpg > "foto.png.jpg".rsplit('.',1) > ['foto.png', 'jpg'][1] > jpg
     '''
 
     caminho = f'PyTech/static/img/produtos/{nomeProduto}.{extensao}'
-    a.save(caminho)
+    imagem.save(caminho)
     
     caminhoBD = f'../static/img/produtos/{nomeProduto}.{extensao}'
     
     cursor = db.cursor(dictionary=True)
 
     sql = ("INSERT INTO Produto "
-           "(nome_produto, preco) "
-           "VALUES (%s, %s)")
+           "(nome_produto, preco, id_fornecedor) "
+           "VALUES (%s, %s, %s)")
 
-    tupla = (nomeProduto, preco)
+    tupla = (nomeProduto, preco, 1)
     cursor.execute(sql, tupla)
     cursor.close()
     db.commit()
@@ -223,6 +241,33 @@ def enviar():
     db.commit()
 
     return render_template('teste.html')
+
+@app.route('/ShoppingCart')
+def carrinhoCompras():
+    cursor = db.cursor(dictionary=True)
+    
+    #seleionando carrinho do cliente 
+    cursor.execute(f'SELECT id_carrinho FROM Carrinho WHERE id_cliente={1}')
+    carrinho_cliente = cursor.fetchall()
+    
+    #selecionando carrinho com  produtos do cliente
+    cursor.execute(f'SELECT * FROM Carrinho_has_Produto WHERE id_carrinho={carrinho_cliente[0]["id_carrinho"]}')
+    carrinho_comProduto_cliente = cursor.fetchall()
+
+    #lista que guarda todos os produtos que estão no carrinho
+    lista_produtos = []
+    imagens_produtos = []
+    
+    #pegando todos os produtos que estão dentro do carrinho do cliente
+    for produto in carrinho_comProduto_cliente:
+        cursor.execute(f'SELECT * FROM Produto WHERE id_produto={produto["id_produto"]}')
+        produtos_dentro_carrinho = cursor.fetchall()
+        lista_produtos.append(produtos_dentro_carrinho)
+        cursor.execute(f'SELECT * FROM imagem_produto WHERE id_produto={produto["id_produto"]}')
+        imgs_produtos_dentro_carrinho = cursor.fetchall()
+        imagens_produtos.append(imgs_produtos_dentro_carrinho)
+        
+    return render_template("shoppingCart.html", title="Carrinho de compras", produtos = lista_produtos, quantidade_valorTot=carrinho_comProduto_cliente, imgs=imagens_produtos, cliente=cliente.nome, fornecedor=fornecedor.razao_social)
 
 if __name__ == '__main__':
     app.run(debug=True)
