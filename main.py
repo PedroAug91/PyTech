@@ -242,32 +242,52 @@ def enviar():
 
     return render_template('teste.html')
 
+
+
 @app.route('/ShoppingCart')
 def carrinhoCompras():
-    cursor = db.cursor(dictionary=True)
-    
-    #seleionando carrinho do cliente 
-    cursor.execute(f'SELECT id_carrinho FROM Carrinho WHERE id_cliente={1}')
-    carrinho_cliente = cursor.fetchall()
-    
-    #selecionando carrinho com  produtos do cliente
-    cursor.execute(f'SELECT * FROM Carrinho_has_Produto WHERE id_carrinho={carrinho_cliente[0]["id_carrinho"]}')
-    carrinho_comProduto_cliente = cursor.fetchall()
-
-    #lista que guarda todos os produtos que estão no carrinho
-    lista_produtos = []
-    imagens_produtos = []
-    
-    #pegando todos os produtos que estão dentro do carrinho do cliente
-    for produto in carrinho_comProduto_cliente:
-        cursor.execute(f'SELECT * FROM Produto WHERE id_produto={produto["id_produto"]}')
-        produtos_dentro_carrinho = cursor.fetchall()
-        lista_produtos.append(produtos_dentro_carrinho)
-        cursor.execute(f'SELECT * FROM imagem_produto WHERE id_produto={produto["id_produto"]}')
-        imgs_produtos_dentro_carrinho = cursor.fetchall()
-        imagens_produtos.append(imgs_produtos_dentro_carrinho)
+    if cliente.email != None:
+        cursor = db.cursor(dictionary=True)
         
-    return render_template("shoppingCart.html", title="Carrinho de compras", produtos = lista_produtos, quantidade_valorTot=carrinho_comProduto_cliente, imgs=imagens_produtos, cliente=cliente.nome, fornecedor=fornecedor.razao_social)
+        #seleionando id do cliente a partir do email salvo através do login
+        cursor.execute(f'SELECT id_cliente FROM Cliente WHERE email=\'{cliente.email}\'')
+        id_cliente = cursor.fetchall()
+        print(id_cliente)
+        
+        #seleionando carrinho do cliente 
+        cursor.execute(f'SELECT id_carrinho FROM Carrinho WHERE id_cliente={id_cliente[0]["id_cliente"]}')
+        carrinho_cliente = cursor.fetchall()
+        
+        if carrinho_cliente != []:
+            #selecionando carrinho com  produtos do cliente
+            cursor.execute(f'SELECT * FROM Carrinho_has_Produto WHERE id_carrinho={carrinho_cliente[0]["id_carrinho"]}')
+            carrinho_comProduto_cliente = cursor.fetchall()
+
+            #lista que guarda todos os produtos que estão no carrinho
+            lista_produtos = []
+            imagens_produtos = []
+            fornecedor_infos = []
+            
+            #pegando todos os produtos, imagens e fornecedores que estão dentro do carrinho do cliente
+            for produto in carrinho_comProduto_cliente:
+                cursor.execute(f'SELECT * FROM Produto WHERE id_produto={produto["id_produto"]}')
+                produtos_dentro_carrinho = cursor.fetchall()
+                lista_produtos.append(produtos_dentro_carrinho)
+                
+                cursor.execute(f'SELECT * FROM imagem_produto WHERE id_produto={produto["id_produto"]}')
+                imgs_produtos_dentro_carrinho = cursor.fetchall()
+                imagens_produtos.append(imgs_produtos_dentro_carrinho)
+                
+                cursor.execute(f'SELECT * FROM Fornecedor WHERE id_fornecedor={produtos_dentro_carrinho[0]["id_fornecedor"]}')
+                fornecedor_dados = cursor.fetchall()
+                fornecedor_infos.append(fornecedor_dados)
+            
+            print(fornecedor_infos)
+            return render_template("shoppingCart.html", title="Carrinho de compras", produtos = lista_produtos, quantidade_valorTot=carrinho_comProduto_cliente, imagens=imagens_produtos, cliente=cliente.nome, fornecedor=fornecedor.razao_social, vendedores=fornecedor_infos)
+        else:
+            return render_template("shoppingCart.html", produtos=[])
+    else:
+        return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)

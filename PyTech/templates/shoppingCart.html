@@ -10,24 +10,39 @@
                 <i class="fa-solid fa-cart-shopping"></i>
                 <h1>Carrinho de compras</h1>
             </div>
-            <div>
-                <h1>{{ produtos }}</h1>
-                <h1>{{ quantidade_valorTot }}</h1>
-                <h1>{{ imgs }}</h1>
-                <br>
-                <!-- <h1>{{ cliente }}</h1>
-                <br>
-                <h1>{{ fornecedor }}</h1> -->
-                {% if cliente == None and fornecedor == None %}
-                    <h1>Ninguém logado</h1>
-                {% elif cliente == None and fornecedor != None %}
-                    <h1>Oi fornecedor {{ fornecedor }}</h1>
-                {% else %}
-                    <h1>Oi cliente {{ cliente }}</h1>
+            <div class="cards-container">
+                {% if produtos != [] %}
+                    {% for produto in produtos %}
+                        {% for imagem in imagens%}
+                            {% if produto[0]['id_produto'] == imagem[0]['id_produto'] %}
+                                <div class="card-cart">
+                                    <h1>{{ produto[0].nome_produto }}</h1>
+                                    <hr>
+                                    <div class="product">
+                                        {% if imagem[0].caminho != "" %}
+                                            <img class="card-image" src="{{ imagem[0].caminho }}" alt="">
+                                        {% else %}
+                                            <img class="card-image" src="../static/img/404.png" alt="">
+                                        {% endif %}
+                                        <div class="product-infos">
+                                            <h1>R${{ produto[0].preco }}</h1>
+                                            {% for vendedor in vendedores %}
+                                                {% if vendedor[0].id_fornecedor == produto[0].id_fornecedor %}
+                                                    <h2>Vendido por: {{ vendedor[0].razao_social }}</h2>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
                 {% endif %}
+                <div class="payment">
+                    
+                </div>
             </div>
         </div>
-
         <div id="totalValues">
 
         </div>
