@@ -240,7 +240,7 @@ def enviar():
     cursor.close()
     db.commit()
 
-    return render_template('homepage.html')
+    return redirect('/')
 
 @app.route('/ShoppingCart')
 def carrinhoCompras():
@@ -250,7 +250,6 @@ def carrinhoCompras():
         #seleionando id do cliente a partir do email salvo através do login
         cursor.execute(f'SELECT id_cliente FROM Cliente WHERE email=\'{cliente.email}\'')
         id_cliente = cursor.fetchall()
-        print(id_cliente)
         
         #seleionando carrinho do cliente 
         cursor.execute(f'SELECT id_carrinho FROM Carrinho WHERE id_cliente={id_cliente[0]["id_cliente"]}')
@@ -287,10 +286,37 @@ def carrinhoCompras():
     else:
         return redirect('/')
 
+# @app.route('/addInCart')
+# def addInCart():
+#     if cliente.email != None:
+#         cursor = db.cursor(dictionary=True)
+        
+#         #seleionando id do cliente a partir do email salvo através do login
+#         cursor.execute(f'SELECT id_cliente FROM Cliente WHERE email=\'{cliente.email}\'')
+#         id_cliente = cursor.fetchall()
+        
+#         #seleionando carrinho do cliente 
+#         cursor.execute(f'SELECT id_carrinho FROM Carrinho WHERE id_cliente={id_cliente[0]["id_cliente"]}')
+#         carrinho_cliente = cursor.fetchall()
+
+#         insert_produtos_carrinho = ("INSERT INTO Carrinho_has_Produto "
+#         "(id_carrinho, id_produto, quantidade, valor_total)"
+#         "VALUES (%s, %s, %s, %s)")
+
+#         tupla_insert = (carrinho_cliente[0]['id_carrinho'], fetchdata[0]['id_produto'])
+        
+#         cursor.execute(sql2, tupla2)
+#         cursor.close()
+#         db.commit()
+
+#     else:
+#         return redirect('/Auth')
+
 @app.route('/logout')
 def logout():
     cliente.set_info(None, None, None, None, None)
     fornecedor.set_info(None, None, None, None, None)
     return redirect('/')
+
 if __name__ == '__main__':
     app.run(debug=True)
