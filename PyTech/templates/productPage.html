@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block static %}
+    <link rel="stylesheet" href="../static/css/productPage/styleDesktop.css">
+    <link rel="stylesheet" href="../static/css/productPage/styleMobile.css">
+{% endblock static %}
+{% block content %}
+<section class="product-checkout-section" id="upToStart">
+    <div class="product-images">
+        {% if imagem.caminho != "" %}
+        <div class="img-container"><img src="{{ imagem.caminho }}" alt=""></div>
+        {% else %}
+        <div class="img-container"><img src="../static/img/404.png" alt=""></div>
+        {% endif %}
+        <div class="flex-col">
+            <h1 class="_product-name">{{ produto.nome_produto }}</h1>
+            <p class="_product-small-text">Fornecido por: <span class="orange">{{quantidade_fornecedor['razao_social']}}</span></p>
+            <h2 class="_product-price orange">R$ {{ produto.preco }}</h2>
+            {% if quantidade_fornecedor != 0 %}
+            <p class="_product-small-text">Em estoque: {{quantidade_fornecedor['quantidade']}}</p>
+            {% else %}
+            <p class="_product-small-text"><span class="red">Esgotado</span> =(</p>
+            {% endif %}
+            <div class="buttons-container">
+                <button id="btn-redirect" class="btn-acquire" >Comprar</button>
+                <button class="add-to-cart"><i class="fa-solid fa-cart-plus fa-2x"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="product-description-section">
+    <div class="section-heading">
+        <i class="fa-regular fa-file-lines fa-3x section-icon"></i>
+        <h1 class="section-title">Descrição</h1>
+    </div>
+    <div class="text-container">
+        <p>{{ produto.descricao }}</p>
+        <p class="orange">Compre agora na PyTech!</p>
+    </div>
+</section>
+{% endblock content %}
