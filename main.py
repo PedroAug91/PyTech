@@ -147,11 +147,11 @@ def login():
             if(hashed_password == dados[0]["senha"] and 'cpf' in dados[0]):
                 cliente.set_info(dados[0]['nome'], dados[0]['sobrenome'], dados[0]['cpf'], dados[0]['email'], dados[0]['senha'])
                 print(cliente.nome)
-                return redirect(f'/Client/{dados[0]["email"]}')
+                return redirect(f'/ShoppingCart')
             elif(hashed_password == dados[0]["senha"] and 'cnpj' in dados[0]):
                 fornecedor.set_info(dados[0]['razao_social'], dados[0]['cnpj'], dados[0]['email'], dados[0]['senha'], dados[0]['inscricao_estadual'])
                 print(fornecedor.razao_social)
-                return redirect(f'/Supplier/{dados[0]["email"]}')
+                return redirect(f'/SendProducts')
         else:
             continue
         
@@ -240,9 +240,7 @@ def enviar():
     cursor.close()
     db.commit()
 
-    return render_template('teste.html')
-
-
+    return render_template('homepage.html')
 
 @app.route('/ShoppingCart')
 def carrinhoCompras():
@@ -289,5 +287,10 @@ def carrinhoCompras():
     else:
         return redirect('/')
 
+@app.route('/logout')
+def logout():
+    cliente.set_info(None, None, None, None, None)
+    fornecedor.set_info(None, None, None, None, None)
+    return redirect('/')
 if __name__ == '__main__':
     app.run(debug=True)
