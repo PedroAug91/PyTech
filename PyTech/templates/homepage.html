@@ -5,14 +5,38 @@
 {% endblock static %}
 {% block content %}
     <section class="hero" id="upToStart">
-        <img src="../static/img/heroPyTech.png" alt="">
+        <div class="container">
+            <img src="../static/img/404.png" alt="">
+            <div class="hero-card-container">
+                <h1 class="hero-title">Top 1 dos produtos mais vendidos</h1>
+                <h2 class="hero-subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident esse labore ipsam quae, laudantium non minus alias doloribus, nesciunt repellat, dolorem architecto nihil odio vero in corporis! Facere, assumenda atque.</h2>
+                <a href="/Product/Produto 1">Compre agora mesmo!</a>
+            </div>
+            <img src="../static/img/heroPyTechLady.png" alt="">
+        </div>
+    </section>
+    <section class="most-sold-section">
+        <div class="section-heading">
+           <i class="fa-solid fa-boxes-stacked fa-3x section-icon"></i> 
+           <h1 class="section-title">Os mais vendidos<span class="orange">.</span></h1>
+        </div>
+        <div class="cards-container most-sold-container">
+            <div class="ms-card">
+                <img src="../static/img/404.png" alt="">
+                <div class="card-info">
+                    <h1 class="_product-name">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo minima dignissimos accusantium, possimus dicta quis, consectetur laudantium dolor labore expedita tempora delectus excepturi eaque dolore aut obcaecati sequi repellat distinctio!</h1>
+                    <p class="_product-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia veritatis reprehenderit optio nam numquam necessitatibus, harum magnam libero sint laborum ipsa. Quam fugiat deleniti ex ad necessitatibus esse, sit laborum!</p>
+                    <a href="/Product/Produto 1" class="_card-btn">Compre agora!</a>
+                </div>
+            </div>
+        </div>
     </section>
     <section class="recents-section">
         <div class="section-heading">
             <i class="fa-regular fa-clock fa-3x section-icon"></i>
             <h1 class="section-title">Adicionados recentemente<span class="orange">.</span></h1>
         </div>
-        <div class="cards-container">
+        <div class="cards-container recents-container">
             {% if produtos != [] %}
                 {% for produto in produtos %}
                     {% for imagem in imagens%}
@@ -27,7 +51,11 @@
                                     <hr class="card-line">
                                     <h1 class="product-name" >{{ produto.nome_produto }}</h1>
                                     <h2 class="product-price">R${{ produto.preco }}</h2>
+                                {% if produto.descricao != "" %}
                                     <p class="product-description">{{ produto.descricao }}</p>
+                                {% else %}
+                                    <p class="product-description">Este produto não possui descrição.</p>
+                                {% endif %}
                             </div>
                         </a>
                         {% endif %}
