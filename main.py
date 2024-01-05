@@ -1,6 +1,6 @@
 from PyTech import create_app
+from PyTech.models import Cliente, Fornecedor
 from flask import redirect, request, render_template, url_for, Flask
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import mysql.connector
 from flask_hashing import Hashing
 
@@ -9,29 +9,14 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='labinfo',
+    password='010705',
     database='pytech'
 )
 
-login_manager = LoginManager(app)
-# login_manager.login_view = 'login'
+cliente = Cliente(None, None, None, None, None)
+fornecedor = Fornecedor(None, None, None, None, None)
 
 hashing = Hashing(app)
-
-class User(db.Model, UserMixin):
-    # __tablename__ = 'users'
-    # id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    # name = db.Column(db.String(86), nullable=False)
-    # email = db.Column(db.String(84), nullable=False, unique=True)
-    # password = db.Column(db.String(128), nullable=False)
-    def __init__(self, name, email, password):
-        self.name = name
-        self.email = email
-        self.password = password
-
-@login_manager.user_loader
-def get_user(user_id):
-    return User.query.filter_by(id=user_id).first()
 
 @app.route('/', methods=['GET'])
 def homepage():
@@ -49,138 +34,161 @@ def homepage():
 ### CADASTRO DE UMA PESSOA FÍSICA/CLIENTE ###
 @app.route("/signup", methods=['POST'])
 def signup():
-    if request.method == 'POST':
-        nome_fisica = request.form['name']
-        sobrenome_fisica = request.form['last-name']
-        cpf = request.form['cpf']
-        email_fisica = request.form['email']
-        telefone_fisica = request.form['telephone']
-        senha_fisica = request.form['password']
+    nome_fisica = request.form['name']
+    sobrenome_fisica = request.form['last-name']
+    cpf = request.form['cpf']
+    email_fisica = request.form['email']
+    telefone_fisica = request.form['telephone']
+    senha_fisica = request.form['password']
+    
+    #dando hashing na senha, hashing de 16 caracteres
+    hashed_password = hashing.hash_value(senha_fisica)
+    hashed_password = hashed_password[:16]
+    
+    #checando se o cpf já está cadastrado
+    cursor = db.cursor(dictionary=True)
+    cursor.execute(f"SELECT * FROM Cliente WHERE cpf='{cpf}'")
+    check_pessoa_existe = cursor.fetchall()
+    
+    if check_pessoa_existe:
+        raise Exception("Esse cpf já está cadastrado")
+    else:
+        # dando post no banco com as informações do cliente
+        post_cliente = "INSERT INTO Cliente (nome, sobrenome, cpf, email, senha) VALUES (%s, %s, %s, %s, %s)"
         
-        #dando hashing na senha, hashing de 16 caracteres
-        hashed_password = hashing.hash_value(senha_fisica)
-        hashed_password = hashed_password[:16]
+        tupla_cliente_infos = (nome_fisica, sobrenome_fisica, cpf, email_fisica, hashed_password)
         
-        #checando se o cpf já está cadastrado
+        cursor.execute(post_cliente, tupla_cliente_infos)
+        cursor.close()
+        db.commit()
+        
+        # criando outro cursor para pegar o id_cliente que acabou de ser adicionado para adicionar o telefone do mesmo
         cursor = db.cursor(dictionary=True)
-        cursor.execute(f"SELECT * FROM Cliente WHERE cpf='{cpf}'")
-        check_pessoa_existe = cursor.fetchall()
+        select_id_cliente = (f"SELECT id_cliente FROM Cliente WHERE cpf='{cpf}'")
+        cursor.execute(select_id_cliente)
+        fetch_cpf = cursor.fetchall()
+        fetch_cpf[0]['id_cliente']
         
-        if check_pessoa_existe:
-            raise Exception("Esse cpf já está cadastrado")
-        else:
-            # dando post no banco com as informações do cliente
-            post_cliente = "INSERT INTO Cliente (nome, sobrenome, cpf, email, senha) VALUES (%s, %s, %s, %s, %s)"
-            
-            tupla_cliente_infos = (nome_fisica, sobrenome_fisica, cpf, email_fisica, hashed_password)
-            
-            cursor.execute(post_cliente, tupla_cliente_infos)
-            cursor.close()
-            db.commit()
-            
-            # criando outro cursor para pegar o id_cliente que acabou de ser adicionado para adicionar o telefone do mesmo
-            cursor = db.cursor(dictionary=True)
-            select_id_cliente = (f"SELECT id_cliente FROM Cliente WHERE cpf='{cpf}'")
-            cursor.execute(select_id_cliente)
-            fetch_cpf = cursor.fetchall()
-            fetch_cpf[0]['id_cliente']
-            
-            post_cliente_telefone = "INSERT INTO Telefone (id_cliente, telefone) VALUES (%s, %s)"
-            
-            tupla_ciente_telefone = (fetch_cpf[0]['id_cliente'], telefone_fisica)
-            cursor.execute(post_cliente_telefone, tupla_ciente_telefone)
-            cursor.close()
-            db.commit()
-            return redirect("/")
+        post_cliente_telefone = "INSERT INTO Telefone (id_cliente, telefone) VALUES (%s, %s)"
+        
+        tupla_ciente_telefone = (fetch_cpf[0]['id_cliente'], telefone_fisica)
+        cursor.execute(post_cliente_telefone, tupla_ciente_telefone)
+        cursor.close()
+        db.commit()
+        return redirect("/")
 
 ### CADASTRO DE UM FORNECEDOR ###
 @app.route("/signupJuridical", methods=['POST'])
 def signupJuridical():
-    if request.method == 'POST':
-        razao_social = request.form['social-reason']
-        cnpj = request.form['cnpj']
-        email_juridico = request.form['email']
-        telefone_juridico = request.form['telephone']
-        inscricao_estadual = request.form['state-registration']
-        senha_juridico = request.form['password']
+    razao_social = request.form['social-reason']
+    cnpj = request.form['cnpj']
+    email_juridico = request.form['email']
+    telefone_juridico = request.form['telephone']
+    inscricao_estadual = request.form['state-registration']
+    senha_juridico = request.form['password']
+    
+    #dando hashing na senha, hashing de 16 caracteres
+    hashed_password = hashing.hash_value(senha_juridico)
+    hashed_password = hashed_password[:16]
+    
+    #checando se o cpf já está cadastrado
+    cursor = db.cursor(dictionary=True)
+    cursor.execute(f"SELECT * FROM Fornecedor WHERE cnpj='{cnpj}'")
+    check_juridico_existe = cursor.fetchall()
+    
+    if check_juridico_existe:
+        raise Exception("Esse cnpj já está cadastrado")
+    else:
+        # dando post no banco com as informações do fornecedor
+        post_fornecedor = "INSERT INTO Fornecedor (razao_social, email, cnpj, senha, inscricao_estadual) VALUES (%s, %s, %s, %s, %s)"
         
-        #dando hashing na senha, hashing de 16 caracteres
-        hashed_password = hashing.hash_value(senha_juridico)
-        hashed_password = hashed_password[:16]
+        tupla_fornecedor_infos = (razao_social, email_juridico, cnpj, hashed_password, inscricao_estadual)
         
-        #checando se o cpf já está cadastrado
+        cursor.execute(post_fornecedor, tupla_fornecedor_infos)
+        cursor.close()
+        db.commit()
+        
+        # criando outro cursor para pegar o id_dornecedor que acabou de ser adicionado para adicionar o telefone do mesmo
         cursor = db.cursor(dictionary=True)
-        cursor.execute(f"SELECT * FROM Fornecedor WHERE cnpj='{cnpj}'")
-        check_juridico_existe = cursor.fetchall()
+        select_id_fornedor = (f"SELECT id_fornecedor FROM Fornecedor WHERE cnpj='{cnpj}'")
+        cursor.execute(select_id_fornedor)
+        fetch_cnpj = cursor.fetchall()
+        fetch_cnpj[0]['id_fornecedor']
         
-        if check_juridico_existe:
-            raise Exception("Esse cnpj já está cadastrado")
-        else:
-            # dando post no banco com as informações do fornecedor
-            post_fornecedor = "INSERT INTO Fornecedor (razao_social, email, cnpj, senha, inscricao_estadual) VALUES (%s, %s, %s, %s, %s)"
-            
-            tupla_fornecedor_infos = (razao_social, email_juridico, cnpj, hashed_password, inscricao_estadual)
-            
-            cursor.execute(post_fornecedor, tupla_fornecedor_infos)
-            cursor.close()
-            db.commit()
-            
-            # criando outro cursor para pegar o id_dornecedor que acabou de ser adicionado para adicionar o telefone do mesmo
-            cursor = db.cursor(dictionary=True)
-            select_id_fornedor = (f"SELECT id_fornecedor FROM Fornecedor WHERE cnpj='{cnpj}'")
-            cursor.execute(select_id_fornedor)
-            fetch_cnpj = cursor.fetchall()
-            fetch_cnpj[0]['id_fornecedor']
-            
-            post_fornecedor_telefone = "INSERT INTO Telefone (id_fornecedor, telefone) VALUES (%s, %s)"
-            
-            tupla_fornecedor_telefone = (fetch_cnpj[0]['id_fornecedor'], telefone_juridico)
-            cursor.execute(post_fornecedor_telefone, tupla_fornecedor_telefone)
-            cursor.close()
-            db.commit()
-            return redirect("/")
+        post_fornecedor_telefone = "INSERT INTO Telefone (id_fornecedor, telefone) VALUES (%s, %s)"
+        
+        tupla_fornecedor_telefone = (fetch_cnpj[0]['id_fornecedor'], telefone_juridico)
+        cursor.execute(post_fornecedor_telefone, tupla_fornecedor_telefone)
+        cursor.close()
+        db.commit()
+        return redirect("/")
 
 ### LOGIN DE UM USUÁRIO ###
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        cpf_cnpj_email = request.form.get("info")
-        senha = request.form.get("password")
+    cpf_cnpj_email = request.form.get("info")
+    senha = request.form.get("password")
 
-        hashed_password = hashing.hash_value(senha)
-        hashed_password = hashed_password[:16]
-
-        cursor = db.cursor(dictionary=True)
-        cursor.execute(f"SELECT * FROM Cliente WHERE email='{cpf_cnpj_email}'")
-        select_email_cliente = cursor.fetchall()
-        cursor.execute(f"SELECT * FROM Fornecedor WHERE email='{cpf_cnpj_email}'")
-        select_email_fornecedor = cursor.fetchall()
-        cursor.execute(f"SELECT * FROM Cliente WHERE cpf='{cpf_cnpj_email}'")
-        select_cpf_cliente = cursor.fetchall()
-        cursor.execute(f"SELECT * FROM Fornecedor WHERE cnpj='{cpf_cnpj_email}'")
-        select_cnpj_fornecedor = cursor.fetchall()
-
-        for dados in (select_email_fornecedor, select_email_cliente, select_cpf_cliente, select_cnpj_fornecedor):
-            if(dados):
-                if(hashed_password == dados[0]["senha"]):
-                    user = User(dados[0]['email'], dados[0]['senha'])
-                    return redirect(f'/User/{dados[0]["email"]}')
-            else:
-                continue
-
+    hashed_password = hashing.hash_value(senha)
+    hashed_password = hashed_password[:16]
+    
+    cursor = db.cursor(dictionary=True)
+    cursor.execute(f"SELECT * FROM Cliente WHERE email='{cpf_cnpj_email}'")
+    select_email_cliente = cursor.fetchall()
+    cursor.execute(f"SELECT * FROM Fornecedor WHERE email='{cpf_cnpj_email}'")
+    select_email_fornecedor = cursor.fetchall()
+    cursor.execute(f"SELECT * FROM Cliente WHERE cpf='{cpf_cnpj_email}'")
+    select_cpf_cliente = cursor.fetchall()
+    cursor.execute(f"SELECT * FROM Fornecedor WHERE cnpj='{cpf_cnpj_email}'")
+    select_cnpj_fornecedor = cursor.fetchall()
+    
+    for dados in (select_email_fornecedor, select_email_cliente, select_cpf_cliente, select_cnpj_fornecedor):
+        if(dados):
+            if(hashed_password == dados[0]["senha"] and 'cpf' in dados[0]):
+                cliente.set_info(dados[0]['nome'], dados[0]['sobrenome'], dados[0]['cpf'], dados[0]['email'], dados[0]['senha'])
+                print(cliente.nome)
+                return redirect(f'/Client/{dados[0]["email"]}')
+            elif(hashed_password == dados[0]["senha"] and 'cnpj' in dados[0]):
+                fornecedor.set_info(dados[0]['razao_social'], dados[0]['cnpj'], dados[0]['email'], dados[0]['senha'], dados[0]['inscricao_estadual'])
+                print(fornecedor.razao_social)
+                return redirect(f'/Supplier/{dados[0]["email"]}')
+        else:
+            continue
+        
     raise Exception("Ei boy, esse usuario nem existe")
     
-@app.route("/product/<produto>")
+@app.route("/Product/<produto>")
 def produto(produto):
+    cursor = db.cursor(dictionary=True)
+    select = f"SELECT * FROM produto where nome_produto = '{produto}'"
+    cursor.execute(select)
+    dados_produto = cursor.fetchone()
+
+    select = f"SELECT * FROM imagem_produto where id_produto = '{dados_produto['id_produto']}'"
+    cursor.execute(select)
+    imagem_produto = cursor.fetchone()
+
+    select = f"SELECT e.quantidade, f.razao_social FROM estoque e INNER JOIN fornecedor f ON e.id_fornecedor = f.id_fornecedor INNER JOIN produto p ON e.id_produto = p.id_produto WHERE p.id_produto = '{dados_produto['id_produto']}'"
+    cursor.execute(select)
+    quantidade_fornecedor = cursor.fetchone()
+
+    return render_template('productPage.html', produto=dados_produto, imagem=imagem_produto, quantidade_fornecedor=quantidade_fornecedor, title=dados_produto['nome_produto'])
+
+@app.route("/Client/<usuario>")
+def client(usuario):
     return render_template('productPage.html')
 
-@app.route("/User/<usuario>")
-def usuario(usuario):
+@app.route("/Supplier/<usuario>")
+def supplier(usuario):
     return render_template('productPage.html')
 
 @app.route("/Admin")
 def admin():
     return render_template('admin.html')
+
+@app.route('/SendProducts')
+def enviandoProdutos():
+    return render_template('cadastrarProdutos.html')
 
 ### CADASTRO DE UM PRODUTO NO BANCO ###
 @app.route('/cadastrarProduto', methods=['POST'])
@@ -188,26 +196,26 @@ def enviar():
     nomeProduto = request.form['nome-produto']
     preco = request.form['preco']
     quant = request.form['quantidade']
-    a = request.files['arq']
+    imagem = request.files['imagem']
     
     ### Descobrir a extensao ###
-    extensao = a.filename.rsplit('.',1)[1]
+    extensao = imagem.filename.rsplit('.',1)[1]
     '''
     foto.png.jpg > "foto.png.jpg".rsplit('.',1) > ['foto.png', 'jpg'][1] > jpg
     '''
 
     caminho = f'PyTech/static/img/produtos/{nomeProduto}.{extensao}'
-    a.save(caminho)
+    imagem.save(caminho)
     
     caminhoBD = f'../static/img/produtos/{nomeProduto}.{extensao}'
     
     cursor = db.cursor(dictionary=True)
 
     sql = ("INSERT INTO Produto "
-           "(nome_produto, preco) "
-           "VALUES (%s, %s)")
+           "(nome_produto, preco, id_fornecedor) "
+           "VALUES (%s, %s, %s)")
 
-    tupla = (nomeProduto, preco)
+    tupla = (nomeProduto, preco, 1)
     cursor.execute(sql, tupla)
     cursor.close()
     db.commit()
@@ -255,14 +263,11 @@ def carrinhoCompras():
         cursor.execute(f'SELECT * FROM Produto WHERE id_produto={produto["id_produto"]}')
         produtos_dentro_carrinho = cursor.fetchall()
         lista_produtos.append(produtos_dentro_carrinho)
-    
-    return render_template("shoppingCart.html", title="Carrinho de compras", produtos = lista_produtos, quantidade_valorTot=carrinho_comProduto_cliente)
+        cursor.execute(f'SELECT * FROM imagem_produto WHERE id_produto={produto["id_produto"]}')
+        imgs_produtos_dentro_carrinho = cursor.fetchall()
+        imagens_produtos.append(imgs_produtos_dentro_carrinho)
+        
+    return render_template("shoppingCart.html", title="Carrinho de compras", produtos = lista_produtos, quantidade_valorTot=carrinho_comProduto_cliente, imgs=imagens_produtos, cliente=cliente.nome, fornecedor=fornecedor.razao_social)
 
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('/Auth'))
-    
 if __name__ == '__main__':
     app.run(debug=True)
