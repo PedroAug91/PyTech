@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block static %}
+    <link rel="stylesheet" href="..\static\css\shoppingCart\styledesktop.css">
+    <link rel="stylesheet" href="..\static\css\shoppingCart\stylemobile.css">
+{% endblock static %}
+{% block content %}
+    <section>
+        <div id="products">
+            <div class="title">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <h1>Carrinho de compras</h1>
+            </div>
+            <div class="cards-container">
+                {% if produtos != [] %}
+                    {% for produto in produtos %}
+                        {% for imagem in imagens%}
+                            {% if produto[0]['id_produto'] == imagem[0]['id_produto'] %}
+                                <div class="card-cart">
+                                    <h1>{{ produto[0].nome_produto }}</h1>
+                                    <hr>
+                                    <div class="product">
+                                        {% if imagem[0].caminho != "" %}
+                                            <img class="card-image" src="{{ imagem[0].caminho }}" alt="">
+                                        {% else %}
+                                            <img class="card-image" src="../static/img/404.png" alt="">
+                                        {% endif %}
+                                        <div class="product-infos">
+                                            <h1>R${{ produto[0].preco }}</h1>
+                                            {% for vendedor in vendedores %}
+                                                {% if vendedor[0].id_fornecedor == produto[0].id_fornecedor %}
+                                                    <h2>Vendido por: {{ vendedor[0].razao_social }}</h2>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                <div class="payment">
+                    
+                </div>
+            </div>
+        </div>
+        <div id="totalValues">
+
+        </div>
+    </section>
+{% endblock content %}

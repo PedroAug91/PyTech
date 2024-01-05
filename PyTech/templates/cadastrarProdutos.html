@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block static %}
+    <link rel="stylesheet" href="..\static\css\cadastrarProdutos\styledesktop.css">
+    <link rel="stylesheet" href="..\static\css\cadastrarProdutos\stylemobile.css">
+    <title>Cadastro de Produtos | PyTech</title>
+{% endblock static %}
+{% block content %}
+
+    <section>
+        <div id="rectangle">
+            <div id="title">
+                <h1>Adicionar produto</h1>
+            </div>
+
+            <div class="forms-sendProducts">
+                <form id="form-sendProduct" action="cadastrarProduto" method="post" enctype="multipart/form-data">
+                    <div class="inputs">
+                        <div>
+                            <label for="nome-produto">Nome do produto</label>
+                            <input name="nome-produto" id="nome-produto" type="text" required>
+                        </div>
+
+                        <div>
+                            <label for="preco">Preço</label>
+                            <input name="preco" id="preco" type="number" min="1" step="any" required>
+                        </div>
+
+                        <div>
+                            <label for="quantidade">Quantidade</label>
+                            <input name="quantidade" id="quantidade" type="number" min="1" step="any" required>
+                        </div>
+
+                        <div>
+                            <label for="imagem">Uploud de imagem</label>
+                            <input type="file" name="imagem" id="imagem" required>
+                        </div>
+                    </div>
+                    <div id="button-cadastrar">
+                        <button type="submit" value="cadastrar-produto">Cadastrar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

@@ -10,10 +10,6 @@ def auth():
 def authJuridical():
     return render_template("authJuridical.html", title="Autenticação")
 
-@views.route('/ShoppingCart')
-def carrinhoCompras():
-    return render_template("shoppingCart.html")
-
 @views.route('/Sobre')
 def sobre():
     return render_template("sobre.html", title="Sobre")
