@@ -9,7 +9,6 @@ app = create_app()
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='labinfo',
     database='pytech'
 )
 
@@ -29,7 +28,7 @@ def homepage():
     cursor.execute(select)
     imagens_produtos = cursor.fetchall()
 
-    return render_template("homepage.html", title="Página Principal", produtos=produtos, imagens=imagens_produtos)
+    return render_template("homepage.html", title="Página Principal", produtos=produtos, imagens=imagens_produtos, cliente=cliente.nome, fornecedor=fornecedor.razao_social)
 
 ### CADASTRO DE UMA PESSOA FÍSICA/CLIENTE ###
 @app.route("/signup", methods=['POST'])
@@ -177,11 +176,11 @@ def produto(produto):
 
 @app.route("/Client/<usuario>")
 def client(usuario):
-    return render_template('productPage.html')
+    return render_template('profileClient.html', cliente=cliente.nome)
 
 @app.route("/Supplier/<usuario>")
 def supplier(usuario):
-    return render_template('productPage.html')
+    return render_template('profileSupplier.html', fornecedor=fornecedor.razao_social)
 
 @app.route("/Admin")
 def admin():

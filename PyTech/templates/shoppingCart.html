@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block static %}
+    <link rel="stylesheet" href="..\static\css\shoppingCart\styledesktop.css">
+    <link rel="stylesheet" href="..\static\css\shoppingCart\stylemobile.css">
+{% endblock static %}
+{% block content %}
+    <section>
+        <div id="products">
+            <div class="title">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <h1>Carrinho de compras</h1>
+            </div>
+            <div>
+                <h1>{{ produtos }}</h1>
+                <h1>{{ quantidade_valorTot }}</h1>
+                <h1>{{ imgs }}</h1>
+                <br>
+                <!-- <h1>{{ cliente }}</h1>
+                <br>
+                <h1>{{ fornecedor }}</h1> -->
+                {% if cliente == None and fornecedor == None %}
+                    <h1>Ninguém logado</h1>
+                {% elif cliente == None and fornecedor != None %}
+                    <h1>Oi fornecedor {{ fornecedor }}</h1>
+                {% else %}
+                    <h1>Oi cliente {{ cliente }}</h1>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="totalValues">
+
+        </div>
+    </section>
+{% endblock content %}
